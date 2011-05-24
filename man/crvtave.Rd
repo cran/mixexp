@@ -38,4 +38,4 @@ data(conmx)
 crvtave(1,conmx)
 
 }
-\keyword{ }
+\keyword{datagen }

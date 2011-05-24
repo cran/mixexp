@@ -47,4 +47,4 @@ exvert<-Xvert(4,x1=c(.124,.188),x2=c(.064,.128),x3=c(.374,.438),x4=c(.374,.438),
 
 
 }
-\keyword{}
+\keyword{datagen}

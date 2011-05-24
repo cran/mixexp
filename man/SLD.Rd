@@ -27,4 +27,4 @@ des<-SLD(3,2)
 
 des<-SLD(4,3)
 }
-\keyword{ }
+\keyword{datagen }

@@ -21,4 +21,4 @@ Nrows(ndm,nvrr,ncon2,rtheta2)
 }
 \note{ This function is called by the function crtave.}
 \author{ John S. Lawson \email{lawson@byu.edu}}
-\keyword{}
+\keyword{interface}

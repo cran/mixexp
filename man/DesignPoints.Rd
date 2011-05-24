@@ -39,4 +39,4 @@ DesignPoints(des=dat)
 
 DesignPoints(x1lower=0,x1upper=.8,x2lower=.10,x2upper=.95,x3lower=.05,x3upper=.50)  
 }
-\keyword{}
+\keyword{hplot}

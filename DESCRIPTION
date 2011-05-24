@@ -1,7 +1,7 @@
 Package: mixexp
 Type: Package
 Title: Design and analysis of mixture experiments
-Version: 0.5-1
+Version: 1.0-5
 Date: 2011-5-24
 Author: John Lawson <lawson@byu.edu>
 Maintainer: John Lawson <lawson@byu.edu>
@@ -13,6 +13,7 @@ Depends: gdata, lattice, grid
 LazyLoad: yes
 Repository: CRAN
 Repository/R-Forge/Project: daewr
-Repository/R-Forge/Revision: 17
-Date/Publication: 2011-08-30 05:37:26
-Packaged: 2011-08-24 21:12:39 UTC; rforge
+Repository/R-Forge/Revision: 51
+Repository/R-Forge/DateTimeStamp: 2012-09-20 21:06:17
+Date/Publication: 2012-09-22 04:52:53
+Packaged: 2012-09-20 22:19:45 UTC; rforge

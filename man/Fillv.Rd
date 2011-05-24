@@ -28,4 +28,4 @@ ev<-Xvert(3,x1=c(0,.1),x2=c(0,.1),x3=c(0,1),ndm=1)
 ev2<-Fillv(3,ev)
 
 }
-\keyword{}
+\keyword{datagen}

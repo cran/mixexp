@@ -24,4 +24,4 @@ an error encountered when calling subroutine allnr. }
 }
 \note{ This function is called by the function crtave.}
 \author{ John S. Lawson \email{lawson@byu.edu}}
-\keyword{}
+\keyword{interface}

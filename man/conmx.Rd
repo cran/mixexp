@@ -11,4 +11,4 @@
 \references{ 
     Pieple, G. F. (1988) Programs for Generating Extreme Vertices and Centroids of Linearly Constrained Experimental Regions, \emph{Journal of Quality Technology}, Vol. 20, No. 2.
 }
-\keyword{}
+\keyword{datasets}

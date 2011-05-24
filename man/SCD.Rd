@@ -29,4 +29,4 @@ des<-SCD(5)
 des<-SCD(12)
 
 }
-\keyword{ }
+\keyword{datagen}
