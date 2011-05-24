@@ -1,0 +1,14 @@
+useDynLib(mixexp)
+
+export(crvtave,
+       Eflags,
+	   Nrows,
+	   Vertcen,
+	   SCD,
+	   SLD,
+	   MixturePlot,
+	   DesignPoints,
+	   Xvert,
+	   Effplot,
+	   Fillv
+       )
