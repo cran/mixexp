@@ -24,7 +24,7 @@ DesignPoints(des = NULL, x = NULL, y = NULL, z = NULL, x1lower = 0,
 }
 
 \references{
-1. Pieple, G. F. "Programs for Generating Extreme Vertices and Centroids of Linearly Consrtained Experimental Regions"
+1. Piepel, G. F. "Programs for Generating Extreme Vertices and Centroids of Linearly Consrtained Experimental Regions"
 \emph{Journal of Quality Technology}, Vol 20, No. 2, pp. 125-139, 1988.
 
 }

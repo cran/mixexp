@@ -39,7 +39,7 @@ x8=c(0,1),x9=c(0,1),x10=c(0,1),x11=c(0,1),x12=c(0,1))
  \item{PX}{This is a matrix containing the coordinates of the effect plot traces that are plotted. }
 }
 \references{
-1. Pieple, G. F. "Measuring Component Effects in Constrained Mixture Experiments" 
+1. Piepel, G. F. "Measuring Component Effects in Constrained Mixture Experiments" 
 \emph{Technometrics}, Vol 25, pp. 97-105, 1982.
 
 }

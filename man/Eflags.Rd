@@ -1,7 +1,7 @@
 \name{Eflags}
 \alias{Eflags}
 \title{ Loads compiled fortran in shared file cnvrt and returs the error messages}
-\description{This function loads and runs the compiled fortran code cnvrt and prints error messages. cnvrt is Pieple's 1988 JQT fortran code for extreme vertices designs. }
+\description{This function loads and runs the compiled fortran code cnvrt and prints error messages. cnvrt is Piepel's 1988 JQT fortran code for extreme vertices designs. }
 \usage{ 
 Eflags(ndm,nvrr,ncon2,rtheta2) 
 }
@@ -18,7 +18,7 @@ this program only works when # vertices + # centroids <=1000. A negative value f
 an error encountered when calling subroutine allnr. }
 }
 \references{
-1. Pieple, G. F. "Programs for Generating Extreme Vertices and Centroids of Linearly Consrtained Experimental Regions"
+1. Piepel, G. F. "Programs for Generating Extreme Vertices and Centroids of Linearly Consrtained Experimental Regions"
 \emph{Journal of Quality Technology}, Vol 20, No. 2, pp. 125-139, 1988.
 
 }

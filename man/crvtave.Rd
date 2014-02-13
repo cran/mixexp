@@ -3,7 +3,7 @@
 \title{ This function creates an extreme vertices design 
 }
 \description{
-This function calls the function Vertcen which uses Pieple's (1988) fortran 
+This function calls the function Vertcen which uses Piepel's (1988) fortran 
 code (cnvrt) for generating extreme vertices and centroids of linearly constrained 
 mixture experimental regions.
 }

@@ -1,7 +1,7 @@
 \name{Nrows}
 \alias{Nrows}
 \title{ Loads compiled fortran in shared file cnvrt and returns the number of rows in the resulting design}
-\description{This function loads and runs the compiled fortran code cnvrt. cnvrt is Pieple's 1988 JQT fortran code for extreme vertices designs. }
+\description{This function loads and runs the compiled fortran code cnvrt. cnvrt is Piepel's 1988 JQT fortran code for extreme vertices designs. }
 \usage{ 
 Nrows(ndm,nvrr,ncon2,rtheta2) 
 }
@@ -15,7 +15,7 @@ Nrows(ndm,nvrr,ncon2,rtheta2)
 \item{nvrtr }{ This is the number of rows in rxvt the matrix of extreme vertices and centroids }
 }
 \references{
-1. Pieple, G. F. "Programs for Generating Extreme Vertices and Centroids of Linearly Consrtained Experimental Regions"
+1. Piepel, G. F. "Programs for Generating Extreme Vertices and Centroids of Linearly Consrtained Experimental Regions"
 \emph{Journal of Quality Technology}, Vol 20, No. 2, pp. 125-139, 1988.
 
 }

@@ -32,19 +32,19 @@ crvtave                 function for creating extreme vertices designs and
 						Vertcen
 DesignPoints            function for plotting design points and or mixture 
                         constraint in the simplex
-Eflags                  function for calling Pieple's fortran code cnvrt 
+Eflags                  function for calling Piepel's fortran code cnvrt 
                         to create extreme vertices designs and prints any 
 						                        error messages
 Effplot                 function for making mixture effect plots 
 MixturePlot             function for making contour plots in simplex region
 ModelPlot               function for making contour plots of an equation created 
                                                 in by the lm function
-Nrows                   function for calling Pieple's fortran code cnvrt to 
+Nrows                   function for calling Piepel's fortran code cnvrt to 
                         create extreme vertices designs and returns the 
 						                        number of rows in the resulting design
 SCD                     function for creating Simplex Centroid Designs
 SLD                     function for creating Simplex Lattice Designs
-Vertcen                 function for calling Pieple's fortran code cnvrt 
+Vertcen                 function for calling Piepel's fortran code cnvrt 
                         to create extreme vertices designs and returns the 
 						                        resulting design
 Xvert                   function for creating extreme vertices design 
