@@ -37,6 +37,8 @@ Eflags                  function for calling Pieple's fortran code cnvrt
 						                        error messages
 Effplot                 function for making mixture effect plots 
 MixturePlot             function for making contour plots in simplex region
+ModelPlot               function for making contour plots of an equation created 
+                                                in by the lm function
 Nrows                   function for calling Pieple's fortran code cnvrt to 
                         create extreme vertices designs and returns the 
 						                        number of rows in the resulting design
@@ -50,7 +52,7 @@ Xvert                   function for creating extreme vertices design
 }
 }
 \author{
-John Lawson <lawson@byu.edu>
+John Lawson <lawson@byu.edu> and Cameron Willden <ccwillden@gmail.com>
 
 Maintainer: John Lawson <lawson@byu.edu>
 }

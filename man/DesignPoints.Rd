@@ -3,7 +3,10 @@
 \title{This function plots design points and or constraints in the simplex mixture space.}
 \description{ This function plots design points and or constraints in the simplex mixture space. It calls the function MixturePlot that does the actual plotting.}
 \usage{ 
-DesignPoints(des,x,y,z,x1lower,x1upper,x2lower,x2upper,x3lower,x3upper)  
+DesignPoints(des = NULL, x = NULL, y = NULL, z = NULL, x1lower = 0, 
+    x1upper = 0, x2lower = 0, x2upper = 0, x3lower = 0, x3upper = 0,
+    axislabs=c("Fraction x1","Fraction x2","Fraction x3"),
+    cornerlabs = c("x1","x2","x3"))
 }
 \arguments{
   \item{des}{data frame containing x1 x2 and x3 coordinates of data points to be plotted}
@@ -16,6 +19,8 @@ DesignPoints(des,x,y,z,x1lower,x1upper,x2lower,x2upper,x3lower,x3upper)
   \item{x2upper}{ This is the upper constraint on x2}
   \item{x3lower}{ This is the lower constraint on x3}
   \item{x3upper}{ This is the upper constraint on x3}
+  \item{axislabs}{ This is a vector of text labels for the x1, x2 and x3 axis.}
+  \item{cornerlabs}{ This is a vector of text labels for the x1, x2 and x3 vertices.}
 }
 
 \references{

@@ -676,8 +676,16 @@ C  UPDATE THE COUNT (KOUNT) OF COMBINATIONS AND
 C  PROCESS THE CURRENT COMBINATION
 C
       CALL PCESS(R,J,NCENT,CENT,CNTRD)
+	  izero1=0
+	  do 551 Jk=1,nvar
+ 551  if(cntrd(Jk) .gt. tol1) izero1=izero1+1
+      if(izero1 .gt. 0) go to 98
+      KOUNT=KOUNT-1
+      go to 97
+  98  continue	  
 	  DO 99 JJ=1,NVAR
   99  CNTRDM(KOUNT,JJ)=CNTRD(JJ)
+  97  continue
 C	  WRITE(2,600)NCENT,KOUNT,(CNTRDM(KOUNT,JJ),JJ=1,NVAR)
 C 600  FORMAT(' ',2I3,2X,10E12.4,:/' ',5X,10E12.4)
       IF (NCENT .GT. N2) RETURN

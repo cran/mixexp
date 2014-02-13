@@ -1,12 +1,20 @@
-Effplot = function(des,mod=1,dir=1)
+Effplot = function(des=NULL,nfac=3,mod=1,dir=1,ufunc=NULL,dimensions = list(NULL),
+x1=c(0,1),x2=c(0,1),x3=c(0,1),x4=c(0,1),x5=c(0,1),x6=c(0,1),x7=c(0,1),x8=c(0,1),x9=c(0,1),x10=c(0,1),x11=c(0,1),x12=c(0,1))
 {
 # glimit is the resolution for the plot
 glimit<-25
 
-# get the number of factors from the design
+# check for valid mod
+if(mod < 1 | mod > 4) 
+   stop("mod must be a number between 1 and 4")
+if(mod==4 & is.null(ufunc))
+   stop("When mod=4, you must supply the user model as an lm function through ufunc=object")
 
+# get the number of factors from the design
+ if(! is.null(des)) {
 dd<-dim(des)
 nfac<-dd[2]-1
+                    }
 
 # checks for valid number of factors
 if (nfac<2 | nfac>12)
@@ -17,9 +25,8 @@ if (nfac<3 & mod>3)
    stop("Special cubic model requires at least 3 factors")
 
 
-# set up lower and upper bounds for factors
-x1=c(0,1); x2=c(0,1); x3=c(0,1); x4=c(0,1); x5=c(0,1); x6=c(0,1)
-x7=c(0,1); x8=c(0,1); x9=c(0,1); x10=c(0,1); x11=c(0,1); x12=c(0,1)
+# set up lower and upper bounds for factors if design is in des
+if(! is.null(des)) {
  if (nfac>=1) {
   x1[1]<-min(des[,1])
   x1[2]<-max(des[,1]) 
@@ -120,12 +127,16 @@ modl<-lm(y~x1+x2+x3+x4+x5+x6+x1*x2+x1*x3+x1*x4+x1*x5+x1*x6+x2*x3+x2*x4+x2*x5+x2*
 Beta<-modl$coeff 
                   }
              }
+ if (mod==4) {
+modl<-lm(y~.-1,data=des)
+Beta<-ufunc$coeff
+             }
 
 
 
+## end of calculations involving the data frame des
+              }
 
-# prints back beta
-#cat("beta=", ,"\n")
 
 
 # get constraint matrix for crvtave
@@ -136,7 +147,7 @@ v<-c(-x1[1],x1[2])
                   }
 
 
-library(gdata)
+
 Ip<-diag(nfac)
 In<--1*Ip
 conmx<-interleave(Ip,In)
@@ -161,8 +172,6 @@ pcent<-c(rep(0,times=nfac))
  for (i in 1:nfac) {
 pcent[i]<-(cent[i]-ck[1,i])/Den
                    }
-#prints centroid in pseudo component space
-#cat("pcent=",pcent,"\n")
 
 # create grid
 grid<-glimit:1
@@ -173,7 +182,7 @@ Xgrid<-array(rep(0,times=glimit*nfac*nfac))
 dim(Xgrid)<-c(nfac,glimit,nfac)
 
 
-# gets direction for Cox method
+# gets direction for Piepel method
 
 if (dir==1) {
 
@@ -279,13 +288,13 @@ if (ifac<nfac) {
                }
            }
 
-mTitle<-"Effect Plot (Cox direction)"
+mTitle<-"Effect Plot (Piepel direction)"
  } 
-# end of code for Cox direction coordinates
+# end of code for Piepel direction coordinates
 
 
 
-# get direction for Piepel method
+# get direction for Cox method
 
    if (dir==2) {
 
@@ -376,7 +385,6 @@ if (ifac<nfac){
 
 # create bottom half of xi grid
 grid<--1*(1:glimit)
-#Delta<-(pcent[ifac]-ck[1,ifac])/glimit
 Delta<-(pcent[ifac]-0)/glimit
 
 w<-Delta*grid+pcent[ifac]
@@ -405,12 +413,12 @@ for  (i in 1:nfac) {
                    }
 
 
-mTitle<-"Effect Plot (Pieple direction)"
+mTitle<-"Effect Plot (Cox direction)"
               }
 
 
 
-# end of code for Pieple direction 
+# end of code for Cox direction 
 
 # set up the plot matrix
 PX<-array(rep(0,times=nfac*2*(2*glimit+1)))
@@ -421,7 +429,7 @@ dim(PX)<-c((2*glimit+1),2*nfac)
 # get predicted values
   for (ifac in 1:nfac) {
 Xtemp<-Xgrid[ifac, , ]
- if (mod==1) {
+ if (mod==1 | mod==4) {
 Xmat<-Xtemp
              }
  if (mod==2) {
@@ -458,8 +466,18 @@ Xmat<-cbind(Xtemp,Xtemp[,1]*Xtemp[,2],Xtemp[,1]*Xtemp[,3],Xtemp[,1]*Xtemp[,4],Xt
                  }
              }
 
-
+if(mod<=3) {
 yhX<-Xmat%*%Beta
+   }
+           
+if(mod==4) {
+Xmatdf<-data.frame(Xmat)
+colnames(Xmatdf)<-dimensions
+yhU<-predict(ufunc,Xmatdf)
+yhX<-yhU
+           }
+
+
 
 
 # get deviations from centroid
@@ -507,19 +525,15 @@ yaxismin<-min(ymin)
   for (i in 1:nfac) {
   xvec<-PX[(sel[,i]==1),(2*i-1)]
   yvec<-PX[(sel[,i]==1),(2*i)]
-#print(xvec)
-#print(yvec)
   lines(xvec,yvec,lty=i,col=i)
   text(xvec[length(xvec)],yvec[length(yvec)],plabs[i])
   text(xvec[1],yvec[1],plabs[i])
 
                     }
 
-#print(dim(Xgrid))
-#print(dim(Temp))
-#print(Temp)
 
 return(PX)
 }
+##############################################################
 
 
