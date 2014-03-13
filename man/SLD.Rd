@@ -10,7 +10,7 @@ SLD(fac, lev)
 }
 \arguments{
   \item{fac}{ This is the number of factors, this must be between 2 and 12} 
-  \item{lev}{ This is the number of levels}
+  \item{lev}{ This is the number of levels, this must be between 2, and 5.}
 }
 \value{
  \item{SL}{This is a data frame containing the simplex lattice design. The columns are labeled

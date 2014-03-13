@@ -18,8 +18,8 @@ Xvert(nfac=3,uc=c(0,0),lc=c(0,0),nlc=0,lb=c(0,0),ub=c(0,0),coef,ndm=0,plot=TRUE,
   \item{coef}{an nlc by nfac matrix containing the coefficients of the components of the linear constraints}  
   \item{ndm}{an integer representing the highest order of centroids requested. An overall centroid is always included, 0 indicates no other centroids will be created, 1 indicates edge centroids are requested, etc.} 
   \item{plot}{a logical variable indicating whether a plot of the design is desired when there are only 3 components. Default is TRUE}
-  \item{cornerlabs}{ This is a vector of text labels for the x1, x2 and x3 vertices.}
-  \item{axislabs}{ This is a vector of text labels for the x1, x2 and x3 axis. }
+  \item{cornerlabs}{ This is a vector of text labels for the x1, x2 and x3 vertices. Use when there are only 3 components for plotting.}
+  \item{axislabs}{ This is a vector of text labels for the x1, x2 and x3 axis. Use when there are only 3 components for plotting.}
   \item{pseudo}{logical variable, when TRUE plot in pseudo component space when there are lower constraints. }
 }
 

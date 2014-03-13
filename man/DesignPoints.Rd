@@ -1,10 +1,10 @@
 \name{DesignPoints}
 \alias{DesignPoints}
-\title{This function plots design points and or constraints in the simplex mixture space.}
+\title{This function plots design points and or constraints in the simplex mixture space, given a data frame containing the design or vextors x, y, and z of the same length that contain the mixture components in the design.}
 \description{ This function plots design points and or constraints in the simplex mixture space. It calls the function MixturePlot that does the actual plotting.}
 \usage{ 
-DesignPoints(des = NULL,nmxcmp=3, x = NULL, y = NULL, z = NULL, x1lower = 0, 
-                         x1upper = 0, x2lower = 0, x2upper = 0, x3lower = 0, x3upper = 0,
+DesignPoints(des = NULL,nmxcmp=3, x = NULL, y = NULL, z = NULL,x1lower=0,x1upper=0,
+                         x2lower=0, x2upper=0, x3lower=0,x3upper=0,
                          cornerlabs = c("x3","x2","x1"),
                          axislabs=c("x1","x2","x3"),pseudo=FALSE)
 }
@@ -14,15 +14,15 @@ DesignPoints(des = NULL,nmxcmp=3, x = NULL, y = NULL, z = NULL, x1lower = 0,
   \item{x}{ vector of x3 coordinates of design points to be plotted} 
   \item{y}{ vector of x2 coordinates of design points to be plotted}
   \item{z}{ vector of x1 coordinates of design points to be plotted}
-  \item{x1lower}{ This is the lower constraint on x1}
-  \item{x1upper}{ This is the upper constraint on x1}
-  \item{x2lower}{ This is the lower constraint on x2}
-  \item{x2upper}{ This is the upper constraint on x2}
-  \item{x3lower}{ This is the lower constraint on x3}
-  \item{x3upper}{ This is the upper constraint on x3}
+  \item{x1lower}{lower constraint on x1}
+  \item{x1upper}{upper constraint on x1}
+  \item{x2lower}{lower constraint on x2}
+  \item{x2upper}{upper constraint on x2}
+  \item{x3lower}{lower constraint on x3}
+  \item{x3upper}{upper constraint on x3}
   \item{axislabs}{ This is a vector of text labels for the x1, x2 and x3 axis.}
   \item{cornerlabs}{ This is a vector of text labels for the x1, x2 and x3 vertices.}
-  \item{pseudo}{logical variable, when TRUE plot in pseudo component space when there are lower constraints. }
+  \item{pseudo}{logical variable, when TRUE plot is made in pseudo component space bounded by the lower constraints of each component. }
 }
 
 \references{
@@ -30,7 +30,7 @@ DesignPoints(des = NULL,nmxcmp=3, x = NULL, y = NULL, z = NULL, x1lower = 0,
 \emph{Journal of Quality Technology}, Vol 20, No. 2, pp. 125-139, 1988.
 
 }
-\note{ This function calls MixturePlot. If either des and x,y,z are missing no design points will be plotted, and if x1lower, x1upper, etc. are all zero no constraints will be plotted. }
+\note{ This function calls MixturePlot. If either des and x,y,z are missing no design points will be plotted, and if x1lower, x1upper, etc. are all zero no constraints will be plotted. If there are more than 3 columns of mixture components in des, only the first 3 will be plotted ignoring the others. }
 \author{ John S. Lawson \email{lawson@byu.edu}}
 \examples{
 dat<-SCD(3)
@@ -44,6 +44,5 @@ DesignPoints(x=x3,y=x2,z=x1)
 dat<-data.frame(x1,x2,x3)
 DesignPoints(des=dat)
 
-DesignPoints(x1lower=0,x1upper=.8,x2lower=.10,x2upper=.95,x3lower=.05,x3upper=.50)  
 }
 \keyword{hplot}

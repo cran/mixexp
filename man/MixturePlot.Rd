@@ -13,7 +13,7 @@ MixturePlot(x=NULL,y=NULL,z=NULL,w=NULL,des=NULL,
                        x2lab="Fraction X2", x1lab="Fraction X1", 
                        corner.labs = NULL,
                        colorkey=list(dx=0.04,x0=0.95,y0=0.45,y1=0.90,add=TRUE,mode="all"),
-                       pseudo=FALSE,user.func=NULL)
+                       pseudo=FALSE)
 }
 \arguments{
   \item{x}{x3 locations for known points} 
@@ -30,14 +30,13 @@ MixturePlot(x=NULL,y=NULL,z=NULL,w=NULL,des=NULL,
   \item{levels}{vector of contour levels to be plotted}  
   \item{cols}{if TRUE regions between contour lines will be colored} 
   \item{despts}{if TRUE plots the design points in data frame des} 
-  \item{mod}{is an indicator for the model 1=linear, 2=quadratic, 3=special cubic, or by default=NA to signify to signify the model is supplied in the user.func} 
+  \item{mod}{is an indicator for the model 1=linear, 2=quadratic, 4=special cubic. for other Models use the ModelEff function.} 
   \item{x3lab}{label for the x3 axis}  
   \item{x2lab}{label for the x2 axis}  
   \item{x1lab}{label for the x1 axis} 
   \item{corner.labs}{labels for x3, x2 and x1 vertices}  
   \item{colorkey}{a list with the location of the color key}
   \item{pseudo}{if pseudo=TRUE uses pseudo components to zoom in on constrained region. By default pseudo=FALSE}
-  \item{user.func}{a function supplied by the user that takes as arguments a dataframe called 'grid' containing colummns 'x', 'y', and 'z' and returns a predicted 'w' for each row in 'grid'.}  
 }
 
 \references{
@@ -68,22 +67,7 @@ x3<-c(0,0,1,0,.5,.5,.33333,.33333,.33333)
 y<-c(73,68,80,77,86,75,92,93,88)
 des<-data.frame(x1,x2,x3,y)
 MixturePlot(des=des,x3lab="Fraction C",x2lab="Fraction B",
-   x1lab="Fraction A",corner.labs=c("C","B","A"),mod=3,n.breaks=5,cols=TRUE)
+   x1lab="Fraction A",corner.labs=c("C","B","A"),mod=4,n.breaks=5,cols=TRUE)
    
-# User defined equation from Lawson and Willden
-mymod=function(grid){
-x=grid$x #Glycine
-y=grid$y #Saccharine
-z=grid$z  #Enhancer
-w=12.27*z + 10.27*y + 6.27*z + 29.10*z*y + 25.10*z*x + 9.10*y*x +
-547.03*z^2*y*x - 388.97*z*y^2*x - 676.97*z*y*x^2
-return(w)}
-# Create vectors of design points for each variable
-x1=c(0,0,1,0,1/2,1/2,1/3,1/6,1/6,2/3)
-x2=c(0,1,0,1/2,0,1/2,1/3,1/6,2/3,1/6)
-x3=c(1,0,0,1/2,1/2,0,1/3,2/3,1/6,1/6)
-MixturePlot(x1,x2,x3,n.breaks=10,user.func=mymod,constrts=FALSE,
-cols=FALSE,despts=TRUE,x1lab="Fraction of Glycine (X1)",
-x2lab="Fraction of Saccharin (X2)",x3lab="Fraction of Enhancer (X3)")
 }
 \keyword{hplot }

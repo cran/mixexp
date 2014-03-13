@@ -1,145 +1,103 @@
-ModelEff = function(des=NULL,nfac=3,mod=1,dir=1,ufunc=NULL,dimensions = list(NULL),
-                   x1=c(0,1),x2=c(0,1),x3=c(0,1),x4=c(0,1),x5=c(0,1),x6=c(0,1),x7=c(0,1),x8=c(0,1),x9=c(0,1),x10=c(0,1),x11=c(0,1),x12=c(0,1))
+ModelEff=function(nfac=3,mod=1,nproc=0,dir=1,ufunc=mod,dimensions = list(NULL), pvslice=c(1,1,1),
+                  lc=c(0,0,0,0,0,0,0,0,0,0,0,0),uc=c(1,1,1,1,1,1,1,1,1,1,1,1))
 {
+  library(mixexp)
   # glimit is the resolution for the plot
   glimit<-25
   
-  # check for valid mod
-  if(mod < 1 | mod > 4) 
-    stop("mod must be a number between 1 and 4")
-  if(mod==4 & is.null(ufunc))
-    stop("When mod=4, you must supply the user model as an lm function through ufunc=object")
+  # Check for allowed number of process variables
+  if (nproc>3)
+    stop("No more than 3 process variables allowed")
   
-  # get the number of factors from the design
-  if(! is.null(des)) {
-    dd<-dim(des)
-    nfac<-dd[2]-1
-  }
+  # check for valid mod
+  if(mod < 1 | mod > 6) 
+    stop("mod must be a number between 1 and 6")
+  #  if(mod==4 | is.null(ufunc))
+  #    stop("When mod=4, you must supply the user model as an lm function through ufunc=object")
   
   # checks for valid number of factors
   if (nfac<2 | nfac>12)
     stop("The number factors must be between 2 and 12")
   if (nfac>=7 & mod>=2)
     stop("Linear models only when the number of factors is greater than 6")
-  if (nfac<3 & mod>3)
-    stop("Special cubic model requires at least 3 factors")
+  if (nfac<3 & mod==3)
+    stop("cubic or special cubic models require at least 3 factors")
+  if (nfac<3 & mod==4)
+    stop("cubic or special cubic models require at least 3 factors")
+  if(mod>=5 & nproc==0)
+    stop("for models 5 or 6 there must be at least one process variable")
   
+  # get the beta coefficients from the user function supplied
+  if (! is.null(ufunc)) {
+    Beta <- ufunc$coeff
+  }
+  # Set Upper and Lower Bounds for the components
   
-  # set up lower and upper bounds for factors if design is in des
-  if(! is.null(des)) {
+  x1=c(0,1)
+  x2=c(0,1)
+  x3=c(0,1)
+  x4=c(0,1)
+  x5=c(0,1)
+  x6=c(0,1)
+  x7=c(0,1)
+  x8=c(0,1)
+  x9=c(0,1)
+  x10=c(0,1)
+  x11=c(0,1)
+  x12=c(0,1)
+  if(! is.null(lc)){
     if (nfac>=1) {
-      x1[1]<-min(des[,1])
-      x1[2]<-max(des[,1]) 
+      x1[1]<-lc[1]
+      x1[2]<-uc[1]
     }
     if (nfac>=2) {
-      x2[1]<-min(des[,2])
-      x2[2]<-max(des[,2]) 
+      x2[1]<-lc[2]
+      x2[2]<-uc[2]
     }
     if (nfac>=3) {
-      x3[1]<-min(des[,3])
-      x3[2]<-max(des[,3]) 
+      x3[1]<-lc[3]
+      x3[2]<-uc[3]
     }
-    if (nfac>=4) {
-      x4[1]<-min(des[,4])
-      x4[2]<-max(des[,4]) 
+    if (nfac>=4) {   
+      x4[1]<-lc[4]
+      x4[2]<-uc[4]
     }
     if (nfac>=5) {
-      x5[1]<-min(des[,5])
-      x5[2]<-max(des[,5]) 
-    }
+      x5[1]<-lc[5]
+      x5[2]<-uc[5]
+    }    
     if (nfac>=6) {
-      x6[1]<-min(des[,6])
-      x6[2]<-max(des[,6]) 
-    }
+      x6[1]<-lc[6]
+      x6[2]<-uc[6]
+    }    
     if (nfac>=7) {
-      x7[1]<-min(des[,7])
-      x7[2]<-max(des[,7]) 
-    }
+      x7[1]<-lc[7]
+      x7[2]<-uc[7]
+    }    
     if (nfac>=8) {
-      x8[1]<-min(des[,8])
-      x8[2]<-max(des[,8]) 
-    }
+      x8[1]<-lc[8]
+      x8[2]<-uc[8]
+    }    
     if (nfac>=9) {
-      x9[1]<-min(des[,9])
-      x9[2]<-max(des[,9]) 
-    }
+      x9[1]<-lc[9]
+      x9[2]<-uc[9]
+    }    
     if (nfac>=10) {
-      x10[1]<-min(des[,10])
-      x10[2]<-max(des[,10]) 
-    }
+      x10[1]<-lc[10]
+      x10[2]<-uc[10]
+    }    
     if (nfac>=11) {
-      x11[1]<-min(des[,11])
-      x11[2]<-max(des[,11]) 
-    }
+      x11[1]<-lc[11]
+      x11[2]<-uc[11]
+    }    
     if (nfac>=12) {
-      x12[1]<-min(des[,12])
-      x12[2]<-max(des[,12]) 
-    }
+      x12[1]<-lc[12]
+      x12[2]<-uc[12]
+    }    
     
-    
-    # get the beta coefficients
-    if (mod==1) {
-      modl<-lm(y~.-1,data=des)
-      Beta<-modl$coeff
-    }
-    
-    if (mod==2) {
-      
-      if (nfac==2) {
-        modl<-lm(y~x1+x2+x1*x2-1,data=des)
-        Beta<-modl$coeff
-      }
-      
-      if (nfac==3)  {
-        modl<-lm(y~x1+x2+x3+x1*x2+x1*x3+x2*x3-1,data=des)
-        Beta<-modl$coeff
-      }
-      if (nfac==4)  {
-        modl<-lm(y~x1+x2+x3+x4+x1*x2+x1*x3+x1*x4+x2*x3+x2*x4+x3*x4-1,data=des) 
-        Beta<-modl$coeff
-        
-      }
-      if (nfac==5)  {
-        modl<-lm(y~x1+x2+x3+x4+x5+x1*x2+x1*x3+x1*x4+x1*x5+x2*x3+x2*x4+x2*x5+x3*x4+x3*x5+x4*x5-1,data=des)
-        Beta<-modl$coeff 
-      }
-      if (nfac==6)  {
-        modl<-lm(y~x1+x2+x3+x4+x5+x6+x1*x2+x1*x3+x1*x4+x1*x5+x1*x6+x2*x3+x2*x4+x2*x5+x2*x6+x3*x4+x3*x5+x3*x6+x4*x5+x4*x6+x5*x6-1,data=des)
-        Beta<-modl$coeff 
-      }
-    }
-    
-    if (mod==3) {
-      if (nfac==3)  {
-        modl<-lm(y~x1+x2+x3+x1*x2+x1*x3+x2*x3+x1*x2*x3-1,data=des)
-        Beta<-modl$coeff
-      }
-      if (nfac==4)  {
-        modl<-lm(y~x1+x2+x3+x4+x1*x2+x1*x3+x1*x4+x2*x3+x2*x4+x3*x4+x1*x2*x3+x1*x2*x4+x1*x3*x4+x2*x3*x4-1,data=des) 
-        Beta<-modl$coeff
-      }
-      if (nfac==5)  {
-        modl<-lm(y~x1+x2+x3+x4+x5+x1*x2+x1*x3+x1*x4+x1*x5+x2*x3+x2*x4+x2*x5+x3*x4+x3*x5+x4*x5+x1*x2*x3+x1*x2*x4+x1*x2*x5+x1*x3*x4+x1*x3*x5+x1*x4*x5+x2*x3*x4+x2*x3*x5+x2*x4*x5+x3*x4*x5-1,data=des)
-        Beta<-modl$coeff 
-      }
-      if (nfac==6)  {
-        modl<-lm(y~x1+x2+x3+x4+x5+x6+x1*x2+x1*x3+x1*x4+x1*x5+x1*x6+x2*x3+x2*x4+x2*x5+x2*x6+x3*x4+x3*x5+x3*x6+x4*x5+x4*x6+x5*x6+x1*x2*x3+x1*x2*x4+x1*x2*x5+x1*x2*x6+x1*x3*x4+x1*x3*x5+x1*x3*x6+x1*x4*x5+x1*x4*x6+x1*x5*x6+x2*x3*x4+x2*x3*x5+x2*x3*x6+x2*x4*x5+x2*x4*x6+x2*x5*x6+x3*x4*x5+x3*x4*x6+x3*x5*x6+x4*x5*x6-1,data=des)
-        Beta<-modl$coeff 
-      }
-    }
-    if (mod==4) {
-      modl<-lm(y~.-1,data=des)
-      Beta<-ufunc$coeff
-    }
-    
-    
-    
-    ## end of calculations involving the data frame des
   }
-  
-  
-  
   # get constraint matrix for crvtave
+  
   ck<-cbind(x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12)
   v<-c(-x1[1],x1[2])
   for (i in 2:nfac){
@@ -152,6 +110,7 @@ ModelEff = function(des=NULL,nfac=3,mod=1,dir=1,ufunc=NULL,dimensions = list(NUL
   In<--1*Ip
   conmx<-interleave(Ip,In)
   conmx<-cbind(conmx,v)
+  
   
   # calls crvtave to create exteme vertices design plus centroid
   ndm<-0
@@ -429,7 +388,7 @@ ModelEff = function(des=NULL,nfac=3,mod=1,dir=1,ufunc=NULL,dimensions = list(NUL
   # get predicted values
   for (ifac in 1:nfac) {
     Xtemp<-Xgrid[ifac, , ]
-    if (mod==1 | mod==4) {
+    if (mod==1 | mod==3| mod==4) {
       Xmat<-Xtemp
     }
     if (mod==2) {
@@ -440,44 +399,342 @@ ModelEff = function(des=NULL,nfac=3,mod=1,dir=1,ufunc=NULL,dimensions = list(NUL
         Xmat<-cbind(Xtemp,Xtemp[,1]*Xtemp[,2],Xtemp[,1]*Xtemp[,3],Xtemp[,2]*Xtemp[,3])
       }
       if (nfac==4) {
-        Xmat<-cbind(Xtemp,Xtemp[,1]*Xtemp[,2],Xtemp[,1]*Xtemp[,3],Xtemp[,1]*Xtemp[,4],Xtemp[,2]*Xtemp[,3],Xtemp[,2]*Xtemp[,4],Xtemp[,3]*Xtemp[,4])
+        Xmat<-cbind(Xtemp,Xtemp[,1]*Xtemp[,2],Xtemp[,1]*Xtemp[,3],Xtemp[,1]*Xtemp[,4],
+                    Xtemp[,2]*Xtemp[,3],Xtemp[,2]*Xtemp[,4],Xtemp[,3]*Xtemp[,4])
       }
       if (nfac==5) {
-        Xmat<-cbind(Xtemp,Xtemp[,1]*Xtemp[,2],Xtemp[,1]*Xtemp[,3],Xtemp[,1]*Xtemp[,4],Xtemp[,1]*Xtemp[,5],Xtemp[,2]*Xtemp[,3],Xtemp[,2]*Xtemp[,4],Xtemp[,2]*Xtemp[,5],Xtemp[,3]*Xtemp[,4],Xtemp[,3]*Xtemp[,5],Xtemp[,4]*Xtemp[,5])
+        Xmat<-cbind(Xtemp,Xtemp[,1]*Xtemp[,2],Xtemp[,1]*Xtemp[,3],Xtemp[,1]*Xtemp[,4],
+                    Xtemp[,1]*Xtemp[,5],Xtemp[,2]*Xtemp[,3],Xtemp[,2]*Xtemp[,4],
+                    Xtemp[,2]*Xtemp[,5],Xtemp[,3]*Xtemp[,4],Xtemp[,3]*Xtemp[,5],Xtemp[,4]*Xtemp[,5])
       }
       if (nfac==6) {
-        Xmat<-cbind(Xtemp,Xtemp[,1]*Xtemp[,2],Xtemp[,1]*Xtemp[,3],Xtemp[,1]*Xtemp[,4],Xtemp[,1]*Xtemp[,5],Xtemp[,1]*Xtemp[,6],Xtemp[,2]*Xtemp[,3],Xtemp[,2]*Xtemp[,4],Xtemp[,2]*Xtemp[,5],Xtemp[,2]*Xtemp[,6],Xtemp[,3]*Xtemp[,4],Xtemp[,3]*Xtemp[,5],Xtemp[,3]*Xtemp[,6],Xtemp[,4]*Xtemp[,5],Xtemp[,4]*Xtemp[,6],Xtemp[,5]*Xtemp[,6])
+        Xmat<-cbind(Xtemp,Xtemp[,1]*Xtemp[,2],Xtemp[,1]*Xtemp[,3],Xtemp[,1]*Xtemp[,4],
+                    Xtemp[,1]*Xtemp[,5],Xtemp[,1]*Xtemp[,6],Xtemp[,2]*Xtemp[,3],
+                    Xtemp[,2]*Xtemp[,4],Xtemp[,2]*Xtemp[,5],Xtemp[,2]*Xtemp[,6],
+                    Xtemp[,3]*Xtemp[,4],Xtemp[,3]*Xtemp[,5],Xtemp[,3]*Xtemp[,6],
+                    Xtemp[,4]*Xtemp[,5],Xtemp[,4]*Xtemp[,6],Xtemp[,5]*Xtemp[,6])
       }
     }
     
     
     if (mod==3) {
       if (nfac==3) {
-        Xmat<-cbind(Xtemp,Xtemp[,1]*Xtemp[,2],Xtemp[,1]*Xtemp[,3],Xtemp[,2]*Xtemp[,3],Xtemp[,1]*Xtemp[,2]*Xtemp[,3])
+        Xmat<-Xtemp
+        a<-Xtemp[,1]
+        b<-Xtemp[,2]
+        c12<-cubic(a,b)
+        a<-Xtemp[,1]
+        b<-Xtemp[,3]
+        c13<-cubic(a,b)
+        a<-Xtemp[,2]
+        b<-Xtemp[,3]
+        c23<-cubic(a,b)
+        Xmat<-cbind(Xmat,c12,c13,c23,
+                    Xtemp[,1]*Xtemp[,2],Xtemp[,1]*Xtemp[,3],Xtemp[,2]*Xtemp[,3], 
+                    Xtemp[,1]*Xtemp[,2]*Xtemp[,3])
       }
+      
       if (nfac==4) {
-        Xmat<-cbind(Xtemp,Xtemp[,1]*Xtemp[,2],Xtemp[,1]*Xtemp[,3],Xtemp[,1]*Xtemp[,4],Xtemp[,2]*Xtemp[,3],Xtemp[,2]*Xtemp[,4],Xtemp[,3]*Xtemp[,4],Xtemp[,1]*Xtemp[,2]*Xtemp[,3],Xtemp[,1]*Xtemp[,2]*Xtemp[,4],Xtemp[,1]*Xtemp[,3]*Xtemp[,4],Xtemp[,2]*Xtemp[,3]*Xtemp[,4])
+        Xmat<-Xtemp
+        a<-Xtemp[,1]
+        b<-Xtemp[,2]
+        c12<-cubic(a,b)
+        a<-Xtemp[,1]
+        b<-Xtemp[,3]
+        c13<-cubic(a,b)
+        a<-Xtemp[,1]
+        b<-Xtemp[,4]
+        c14<-cubic(a,b)
+        a<-Xtemp[,2]
+        b<-Xtemp[,3]
+        c23<-cubic(a,b)
+        a<-Xtemp[,2]
+        b<-Xtemp[,4]
+        c24<-cubic(a,b)
+        a<-Xtemp[,3]
+        b<-Xtemp[,4]
+        c34<-cubic(a,b)
+        Xmat<-cbind(Xmat,c12,c13,c14,c23,c24,c34,
+                    Xtemp[,1]*Xtemp[,2],Xtemp[,1]*Xtemp[,3],Xtemp[,1]*Xtemp[,4],
+                    Xtemp[,2]*Xtemp[,3],Xtemp[,2]*Xtemp[,4],Xtemp[,3]*Xtemp[,4],
+                    Xtemp[,1]*Xtemp[,2]*Xtemp[,3],Xtemp[,1]*Xtemp[,2]*Xtemp[,4],
+                    Xtemp[,1]*Xtemp[,3]*Xtemp[,4],Xtemp[,2]*Xtemp[,3]*Xtemp[,4])
       }
+      
       if (nfac==5) {
-        Xmat<-cbind(Xtemp,Xtemp[,1]*Xtemp[,2],Xtemp[,1]*Xtemp[,3],Xtemp[,1]*Xtemp[,4],Xtemp[,1]*Xtemp[,5],Xtemp[,2]*Xtemp[,3],Xtemp[,2]*Xtemp[,4],Xtemp[,2]*Xtemp[,5],Xtemp[,3]*Xtemp[,4],Xtemp[,3]*Xtemp[,5],Xtemp[,4]*Xtemp[,5],Xtemp[,1]*Xtemp[,2]*Xtemp[,3],Xtemp[,1]*Xtemp[,2]*Xtemp[,4],Xtemp[,1]*Xtemp[,2]*Xtemp[,5],Xtemp[,1]*Xtemp[,3]*Xtemp[,4],Xtemp[,1]*Xtemp[,3]*Xtemp[,5],Xtemp[,1]*Xtemp[,4]*Xtemp[,5],Xtemp[,2]*Xtemp[,3]*Xtemp[,4],Xtemp[,2]*Xtemp[,3]*Xtemp[,5],Xtemp[,2]*Xtemp[,4]*Xtemp[,5],Xtemp[,3]*Xtemp[,4]*Xtemp[,5])
+        Xmat<-Xtemp
+        a<-Xtemp[,1]
+        b<-Xtemp[,2]
+        c12<-cubic(a,b)
+        a<-Xtemp[,1]
+        b<-Xtemp[,3]
+        c13<-cubic(a,b)
+        a<-Xtemp[,1]
+        b<-Xtemp[,4]
+        c14<-cubic(a,b)
+        a<-Xtemp[,1]
+        b<-Xtemp[,5]
+        c15<-cubic(a,b)
+        a<-Xtemp[,2]
+        b<-Xtemp[,3]
+        c23<-cubic(a,b)
+        a<-Xtemp[,2]
+        b<-Xtemp[,4]
+        c24<-cubic(a,b)
+        a<-Xtemp[,2]
+        b<-Xtemp[,5]
+        c25<-cubic(a,b)
+        a<-Xtemp[,3]
+        b<-Xtemp[,4]
+        c34<-cubic(a,b)
+        a<-Xtemp[,3]
+        b<-Xtemp[,5]
+        c35<-cubic(a,b)
+        a<-Xtemp[,4]
+        b<-Xtemp[,5]
+        c45<-cubic(a,b)
+        Xmat<-cbind(Xmat,c12,c13,c14,c15,c23,c24,c25,c34,c35,c45,
+                    Xtemp[,1]*Xtemp[,2],Xtemp[,1]*Xtemp[,3],Xtemp[,1]*Xtemp[,4],
+                    Xtemp[,1]*Xtemp[,5],Xtemp[,2]*Xtemp[,3],Xtemp[,2]*Xtemp[,4],
+                    Xtemp[,2]*Xtemp[,5],Xtemp[,3]*Xtemp[,4],Xtemp[,3]*Xtemp[,5],
+                    Xtemp[,4]*Xtemp[,5],Xtemp[,1]*Xtemp[,2]*Xtemp[,3],
+                    Xtemp[,1]*Xtemp[,2]*Xtemp[,4],Xtemp[,1]*Xtemp[,2]*Xtemp[,5],
+                    Xtemp[,1]*Xtemp[,3]*Xtemp[,4],Xtemp[,1]*Xtemp[,3]*Xtemp[,5],
+                    Xtemp[,1]*Xtemp[,4]*Xtemp[,5],Xtemp[,2]*Xtemp[,3]*Xtemp[,4],
+                    Xtemp[,2]*Xtemp[,3]*Xtemp[,5],Xtemp[,2]*Xtemp[,4]*Xtemp[,5],
+                    Xtemp[,3]*Xtemp[,4]*Xtemp[,5])
       }
       if (nfac==6) {
-        Xmat<-cbind(Xtemp,Xtemp[,1]*Xtemp[,2],Xtemp[,1]*Xtemp[,3],Xtemp[,1]*Xtemp[,4],Xtemp[,1]*Xtemp[,5],Xtemp[,1]*Xtemp[,6],Xtemp[,2]*Xtemp[,3],Xtemp[,2]*Xtemp[,4],Xtemp[,2]*Xtemp[,5],Xtemp[,2]*Xtemp[,6],Xtemp[,3]*Xtemp[,4],Xtemp[,3]*Xtemp[,5],Xtemp[,3]*Xtemp[,6],Xtemp[,4]*Xtemp[,5],Xtemp[,4]*Xtemp[,6],Xtemp[,5]*Xtemp[,6],Xtemp[,1]*Xtemp[,2]*Xtemp[,3],Xtemp[,1]*Xtemp[,2]*Xtemp[,4],Xtemp[,1]*Xtemp[,2]*Xtemp[,5],Xtemp[,1]*Xtemp[,2]*Xtemp[,6],Xtemp[,1]*Xtemp[,3]*Xtemp[,4],Xtemp[,1]*Xtemp[,3]*Xtemp[,5],Xtemp[,1]*Xtemp[,3]*Xtemp[,6],Xtemp[,1]*Xtemp[,4]*Xtemp[,5],Xtemp[,1]*Xtemp[,4]*Xtemp[,6],Xtemp[,1]*Xtemp[,5]*Xtemp[,6],Xtemp[,2]*Xtemp[,3]*Xtemp[,4],Xtemp[,2]*Xtemp[,3]*Xtemp[,5],Xtemp[,2]*Xtemp[,3]*Xtemp[,6],Xtemp[,2]*Xtemp[,4]*Xtemp[,5],Xtemp[,2]*Xtemp[,4]*Xtemp[,6],Xtemp[,2]*Xtemp[,5]*Xtemp[,6],Xtemp[,3]*Xtemp[,4]*Xtemp[,5],Xtemp[,3]*Xtemp[,4]*Xtemp[,6],Xtemp[,3]*Xtemp[,5]*Xtemp[,6],Xtemp[,4]*Xtemp[,5]*Xtemp[,6])
+        Xmat<-Xtemp
+        a<-Xtemp[,1]
+        b<-Xtemp[,2]
+        c12<-cubic(a,b)
+        a<-Xtemp[,1]
+        b<-Xtemp[,3]
+        c13<-cubic(a,b)
+        a<-Xtemp[,1]
+        b<-Xtemp[,4]
+        c14<-cubic(a,b)
+        a<-Xtemp[,1]
+        b<-Xtemp[,5]
+        c15<-cubic(a,b)
+        a<-Xtemp[,1]
+        b<-Xtemp[,6]
+        c16<-cubic(a,b)
+        a<-Xtemp[,2]
+        b<-Xtemp[,3]
+        c23<-cubic(a,b)
+        a<-Xtemp[,2]
+        b<-Xtemp[,4]
+        c24<-cubic(a,b)
+        a<-Xtemp[,2]
+        b<-Xtemp[,5]
+        c25<-cubic(a,b)
+        a<-Xtemp[,2]
+        b<-Xtemp[,6]
+        c26<-cubic(a,b)
+        a<-Xtemp[,3]
+        b<-Xtemp[,4]
+        c34<-cubic(a,b)
+        a<-Xtemp[,3]
+        b<-Xtemp[,5]
+        c35<-cubic(a,b)
+        a<-Xtemp[,3]
+        b<-Xtemp[,6]
+        c36<-cubic(a,b)
+        a<-Xtemp[,4]
+        b<-Xtemp[,5]
+        c45<-cubic(a,b)
+        a<-Xtemp[,4]
+        b<-Xtemp[,6]
+        c46<-cubic(a,b)
+        a<-Xtemp[,5]
+        b<-Xtemp[,6]
+        c56<-cubic(a,b)
+        Xmat<-cbind(Xmat,c12,c13,c14,c15,c16,c23,c24,c25,c26,c34,c35,c36,c45,c46,c56,
+                    Xtemp[,1]*Xtemp[,2],Xtemp[,1]*Xtemp[,3],Xtemp[,1]*Xtemp[,4],
+                    Xtemp[,1]*Xtemp[,5],Xtemp[,1]*Xtemp[,6],Xtemp[,2]*Xtemp[,3],
+                    Xtemp[,2]*Xtemp[,4],Xtemp[,2]*Xtemp[,5],Xtemp[,2]*Xtemp[,6],
+                    Xtemp[,3]*Xtemp[,4],Xtemp[,3]*Xtemp[,5],Xtemp[,3]*Xtemp[,6],
+                    Xtemp[,4]*Xtemp[,5],Xtemp[,4]*Xtemp[,6],Xtemp[,5]*Xtemp[,6],
+                    Xtemp[,1]*Xtemp[,2]*Xtemp[,3],Xtemp[,1]*Xtemp[,2]*Xtemp[,4],
+                    Xtemp[,1]*Xtemp[,2]*Xtemp[,5],Xtemp[,1]*Xtemp[,2]*Xtemp[,6],
+                    Xtemp[,1]*Xtemp[,3]*Xtemp[,4],Xtemp[,1]*Xtemp[,3]*Xtemp[,5],
+                    Xtemp[,1]*Xtemp[,3]*Xtemp[,6],Xtemp[,1]*Xtemp[,4]*Xtemp[,5],
+                    Xtemp[,1]*Xtemp[,4]*Xtemp[,6],Xtemp[,1]*Xtemp[,5]*Xtemp[,6],
+                    Xtemp[,2]*Xtemp[,3]*Xtemp[,4],Xtemp[,2]*Xtemp[,3]*Xtemp[,5],
+                    Xtemp[,2]*Xtemp[,3]*Xtemp[,6],Xtemp[,2]*Xtemp[,4]*Xtemp[,5],
+                    Xtemp[,2]*Xtemp[,4]*Xtemp[,6],Xtemp[,2]*Xtemp[,5]*Xtemp[,6],
+                    Xtemp[,3]*Xtemp[,4]*Xtemp[,5],Xtemp[,3]*Xtemp[,4]*Xtemp[,6],
+                    Xtemp[,3]*Xtemp[,5]*Xtemp[,6],Xtemp[,4]*Xtemp[,5]*Xtemp[,6])
+      }
+    }
+    if(mod==4) {
+      if (nfac==3) {
+        Xmat<-cbind(Xtemp,Xtemp[,1]*Xtemp[,2],Xtemp[,1]*Xtemp[,3],Xtemp[,2]*Xtemp[,3],
+                    Xtemp[,1]*Xtemp[,2]*Xtemp[,3])
+      }
+      if (nfac==4) {
+        Xmat<-cbind(Xtemp,Xtemp[,1]*Xtemp[,2],Xtemp[,1]*Xtemp[,3],Xtemp[,1]*Xtemp[,4],
+                    Xtemp[,2]*Xtemp[,3],Xtemp[,2]*Xtemp[,4],Xtemp[,3]*Xtemp[,4],
+                    Xtemp[,1]*Xtemp[,2]*Xtemp[,3],Xtemp[,1]*Xtemp[,2]*Xtemp[,4],
+                    Xtemp[,1]*Xtemp[,3]*Xtemp[,4],Xtemp[,2]*Xtemp[,3]*Xtemp[,4])
+      }
+      if (nfac==5) {
+        Xmat<-cbind(Xtemp,Xtemp[,1]*Xtemp[,2],Xtemp[,1]*Xtemp[,3],Xtemp[,1]*Xtemp[,4],
+                    Xtemp[,1]*Xtemp[,5],Xtemp[,2]*Xtemp[,3],Xtemp[,2]*Xtemp[,4],
+                    Xtemp[,2]*Xtemp[,5],Xtemp[,3]*Xtemp[,4],Xtemp[,3]*Xtemp[,5],
+                    Xtemp[,4]*Xtemp[,5],Xtemp[,1]*Xtemp[,2]*Xtemp[,3],
+                    Xtemp[,1]*Xtemp[,2]*Xtemp[,4],Xtemp[,1]*Xtemp[,2]*Xtemp[,5],
+                    Xtemp[,1]*Xtemp[,3]*Xtemp[,4],Xtemp[,1]*Xtemp[,3]*Xtemp[,5],
+                    Xtemp[,1]*Xtemp[,4]*Xtemp[,5],Xtemp[,2]*Xtemp[,3]*Xtemp[,4],
+                    Xtemp[,2]*Xtemp[,3]*Xtemp[,5],Xtemp[,2]*Xtemp[,4]*Xtemp[,5],
+                    Xtemp[,3]*Xtemp[,4]*Xtemp[,5])
+      }
+      if (nfac==6) {
+        Xmat<-cbind(Xtemp,Xtemp[,1]*Xtemp[,2],Xtemp[,1]*Xtemp[,3],Xtemp[,1]*Xtemp[,4],
+                    Xtemp[,1]*Xtemp[,5],Xtemp[,1]*Xtemp[,6],Xtemp[,2]*Xtemp[,3],
+                    Xtemp[,2]*Xtemp[,4],Xtemp[,2]*Xtemp[,5],Xtemp[,2]*Xtemp[,6],
+                    Xtemp[,3]*Xtemp[,4],Xtemp[,3]*Xtemp[,5],Xtemp[,3]*Xtemp[,6],
+                    Xtemp[,4]*Xtemp[,5],Xtemp[,4]*Xtemp[,6],Xtemp[,5]*Xtemp[,6],
+                    Xtemp[,1]*Xtemp[,2]*Xtemp[,3],Xtemp[,1]*Xtemp[,2]*Xtemp[,4],
+                    Xtemp[,1]*Xtemp[,2]*Xtemp[,5],Xtemp[,1]*Xtemp[,2]*Xtemp[,6],
+                    Xtemp[,1]*Xtemp[,3]*Xtemp[,4],Xtemp[,1]*Xtemp[,3]*Xtemp[,5],
+                    Xtemp[,1]*Xtemp[,3]*Xtemp[,6],Xtemp[,1]*Xtemp[,4]*Xtemp[,5],
+                    Xtemp[,1]*Xtemp[,4]*Xtemp[,6],Xtemp[,1]*Xtemp[,5]*Xtemp[,6],
+                    Xtemp[,2]*Xtemp[,3]*Xtemp[,4],Xtemp[,2]*Xtemp[,3]*Xtemp[,5],
+                    Xtemp[,2]*Xtemp[,3]*Xtemp[,6],Xtemp[,2]*Xtemp[,4]*Xtemp[,5],
+                    Xtemp[,2]*Xtemp[,4]*Xtemp[,6],Xtemp[,2]*Xtemp[,5]*Xtemp[,6],
+                    Xtemp[,3]*Xtemp[,4]*Xtemp[,5],Xtemp[,3]*Xtemp[,4]*Xtemp[,6],
+                    Xtemp[,3]*Xtemp[,5]*Xtemp[,6],Xtemp[,4]*Xtemp[,5]*Xtemp[,6])
       }
     }
     
-    if(mod<=3) {
+    ##### Define Models 5 and 6 here according to the order in MixModel
+    if (mod==5 & nfac >5)
+      stop("No more than 5 mixture components allowed with model 5")
+    if (mod==6 & nfac >5)
+      stop("No more than 5 mixture components allowed with model 6")
+    if (mod==5 | mod==6) {
+      Xmat<-Xtemp
+    }
+    ########### Model 5  #######################################################
+    if (mod==5) {
+      if (nfac==2) {
+        Xmat<-cbind(Xtemp,Xtemp[,1]*Xtemp[,2])            
+      }
+      if (nfac==3) {
+        Xmat<-cbind(Xtemp,Xtemp[,1]*Xtemp[,2],Xtemp[,1]*Xtemp[,3],Xtemp[,2]*Xtemp[,3])
+      }
+      if (nfac==4) {
+        Xmat<-cbind(Xtemp,Xtemp[,1]*Xtemp[,2],Xtemp[,1]*Xtemp[,3],Xtemp[,1]*Xtemp[,4],
+                    Xtemp[,2]*Xtemp[,3],Xtemp[,2]*Xtemp[,4],Xtemp[,3]*Xtemp[,4])
+      }
+      if (nfac==5) {
+        Xmat<-cbind(Xtemp,Xtemp[,1]*Xtemp[,2],Xtemp[,1]*Xtemp[,3],Xtemp[,1]*Xtemp[,4],
+                    Xtemp[,1]*Xtemp[,5],Xtemp[,2]*Xtemp[,3],Xtemp[,2]*Xtemp[,4],
+                    Xtemp[,2]*Xtemp[,5],Xtemp[,3]*Xtemp[,4],Xtemp[,3]*Xtemp[,5],Xtemp[,4]*Xtemp[,5])
+      }
+      # Creates new beta vector at constant values of process variables
+      betaT<-Beta[1:(nfac+(nfac*(nfac-1)/2))]
+      # here are the constant values of the process variables
+      pvslice<-pvslice[1:nproc]
+      # modifies the coeficients for the linear mixture terms by adding effect of linear process variables
+      i1<-nfac
+      i2<-nfac*(nfac-1)/2
+      i3<-nfac*nproc
+      i4<-(nfac*(nfac-1)/2)*nproc
+      i5<-(nproc*(nproc-1)/2)
+      i6<-i2*i5
+      strt1<-i1+i2+1
+      stp1<-i1+i2+i3
+      betaL<-matrix(Beta[(strt1):(stp1)],nrow=nfac,ncol=nproc)
+      betates<-as.matrix(betaL,nrow=1) 
+      if(length(pvslice)>1) {vecL<-pvslice%*%betaL}
+      else {vecL<-pvslice*betaL}
+      betaT[1:nfac]<-betaT[1:nfac]+vecL
+      betates<-as.matrix(betaT,nrow=1)
+      # modifies the coefficients for quadratic mixture terms by adding effect of linear process variables
+      strt2<-i1+i2+i3+1
+      stp2<-i1+i2+i3+i4
+      betaQL<-matrix(Beta[strt2:stp2],nrow=nfac*((nfac-1)/2),ncol=nproc) 
+      vecQ<-pvslice%*%betaQL
+      betaT[(i1+1):(i1+i2)]<-betaT[(i1+1):(i1+i2)]+vecQ
+      betates<-as.matrix(betaT,nrow=1)
+      # modifies the coeficients for the linear mixture terms by adding effect of quadratic process variables
+      strt3<-i1+i2+i3+i4+1
+      stp3<-i1+i2+i3+i4+i5*i1
+      pvsq<-c(pvslice[1]*pvslice[2],pvslice[1]*pvslice[3],pvslice[2]*pvslice[3])
+      betates<-as.matrix(Beta,nrow=1)
+      betaLQ<-matrix(Beta[strt3:stp3],nrow=nfac,ncol=nproc*(nproc-1)/2)
+      vecLQ<-pvsq%*%betaLQ
+      betaT[1:i1]<-betaT[1:i1]+vecLQ
+      # modifies the coefficients for quadratic mixture terms by adding effect of quadratic process variables
+      strt4<-stp3+1
+      stp4<-stp3+i6
+      betates<-as.matrix(Beta,nrow=1)
+      betaQQ<-matrix(Beta[strt4:stp4],nrow=nfac*((nfac-1)/2),ncol=nproc*(nproc-1)/2)
+      vecQQ<-pvsq%*%betaQQ
+      betaT[(i1+1):(i1+i2)]<-betaT[(i1+1):(i1+i2)]+vecQQ
+      betates<-as.matrix(betaT,nrow=1)
+      ##############################################################################
+    }
+    
+    if(mod<=3 ) {
       yhX<-Xmat%*%Beta
     }
-    
-    if(mod==4) {
-      Xmatdf<-data.frame(Xmat)
-      colnames(Xmatdf)<-dimensions
-      yhU<-predict(ufunc,Xmatdf)
-      yhX<-yhU
+    if(mod<=4 ) {
+      yhX<-Xmat%*%Beta
     }
-    
-    
+    if(mod==5 ) {
+      yhX<-Xmat%*%betaT
+    }  
+    ############ Model 6 ############################################################
+    if (mod==6) {
+      if (nfac==2) {
+        Xmat<-cbind(Xtemp,Xtemp[,1]*Xtemp[,2])            
+      }
+      if (nfac==3) {
+        Xmat<-cbind(Xtemp,Xtemp[,1]*Xtemp[,2],Xtemp[,1]*Xtemp[,3],Xtemp[,2]*Xtemp[,3])
+      }
+      if (nfac==4) {
+        Xmat<-cbind(Xtemp,Xtemp[,1]*Xtemp[,2],Xtemp[,1]*Xtemp[,3],Xtemp[,1]*Xtemp[,4],
+                    Xtemp[,2]*Xtemp[,3],Xtemp[,2]*Xtemp[,4],Xtemp[,3]*Xtemp[,4])
+      }
+      if (nfac==5) {
+        Xmat<-cbind(Xtemp,Xtemp[,1]*Xtemp[,2],Xtemp[,1]*Xtemp[,3],Xtemp[,1]*Xtemp[,4],
+                    Xtemp[,1]*Xtemp[,5],Xtemp[,2]*Xtemp[,3],Xtemp[,2]*Xtemp[,4],
+                    Xtemp[,2]*Xtemp[,5],Xtemp[,3]*Xtemp[,4],Xtemp[,3]*Xtemp[,5],Xtemp[,4]*Xtemp[,5])
+      }
+      # Creates new beta vector at constant values of process variables
+      betaT<-Beta[c(1:nfac,(nfac+nproc+1):(nfac+nproc+nfac*(nfac-1)/2))]
+      # here are the constant values of the process variables
+      pvslice<-pvslice[1:nproc]
+      # modifies the coeficients for the linear mixture terms by adding effect of linear process variables
+      i1<-nfac
+      i2<-nfac*(nfac-1)/2
+      i3<-nfac*nproc
+      i4<-(nfac*(nfac-1)/2)*nproc
+      i5<-(nproc*(nproc-1)/2)
+      i6<-i2*i5
+      strt1<-i1+nproc+i2+1
+      stp1<-i1+nproc+i2+i3
+      betaL<-matrix(Beta[(strt1):(stp1)],nrow=nfac,ncol=nproc)
+      betates<-as.matrix(betaL,nrow=1) 
+      if(length(pvslice)>1) {vecL<-pvslice%*%betaL}
+      else {vecL<-pvslice*betaL}
+      betaT[1:nfac]<-betaT[1:nfac]+vecL
+      ## calculates constant to add to predicted values
+      st<-i1+1
+      sp<-i1+nproc
+      betaQ<-(Beta[st:sp])
+      if(length(pvslice)>1) {const<-(pvslice^2)%*%betaQ}
+      else {const<-pvslice*betaQ}
+    }
+    if(mod==6 ) {
+      yhX<-Xmat%*%betaT+const
+      
+    }  
     
     
     # get deviations from centroid
@@ -532,7 +789,6 @@ ModelEff = function(des=NULL,nfac=3,mod=1,dir=1,ufunc=NULL,dimensions = list(NUL
   }
   
   
-  return(PX)
+  #  return(PX)
 }
 ##############################################################
-

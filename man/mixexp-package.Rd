@@ -14,7 +14,7 @@ provided for making ternary contour plots, pictures of constrained regions, desi
 \tabular{ll}{
 Package: \tab mixexp\cr
 Type: \tab Package\cr
-Version: \tab 1.0-1\cr
+Version: \tab 1.2-1\cr
 Date: \tab 2011-05-31\cr
 License: \tab GPL2.0\cr
 Dependencies: gdata, lattice, grid\tab \cr
@@ -28,18 +28,17 @@ Index:
 conmx                   example constraint matrix used as input to function 
                         crvtave
 crvtave                 function for creating extreme vertices designs and 
-                        centroids; this function calls Eflags, Nrows, and 
-						Vertcen
+                        centroids; this function calls Eflags, Nrows, and Vertcen
 DesignPoints            function for plotting design points and or mixture 
                         constraint in the simplex
-Eflags                  function for calling Piepel's fortran code cnvrt 
+Eflags                  function for calling Piepel''s fortran code cnvrt 
                         to create extreme vertices designs and prints any 
 						                        error messages
-Effplot                 function for making mixture effect plots 
-MixturePlot             function for making contour plots in simplex region
+Effplot                 function for making mixture effect plots given a design
+MixturePlot             function for making contour plots in simplex region given a design
 MixModel                function for fitting mixture models to data
-ModelPlot               function for making contour plots of an equation created 
-                                                in by the lm function
+ModelPlot               function for making contour plots of an equation in an lm object 
+                        created by the lm function or the MixModel function
 Nrows                   function for calling Piepel's fortran code cnvrt to 
                         create extreme vertices designs and returns the 
 						                        number of rows in the resulting design

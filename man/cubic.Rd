@@ -8,14 +8,14 @@ cubic(a, b)
 }
 \arguments{
   \item{a}{
-input - vector of mixture component column in the data frame
+input - vector of mixture components in a column in the data frame
 }
   \item{b}{
-input - another vector of mixture component column in the data frame
+input - another vector of mixture components in a column in the data frame
 }
 }
 \value{
-vector of elementwise a^2*b-a*b^2 function of terms in the a and b vector
+vector of elementwise a^2*b-a*b^2 function of terms in the a and b vectors
 }
 \author{
 John Lawson

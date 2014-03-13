@@ -3,10 +3,10 @@
 \title{ This function creates mixture effect plots
 }
 \description{
-This function makes effect plots using the Cox or Pieple directions in constrained mixture space.
+This function makes effect plots using the Cox or Piepel directions in constrained mixture space.
 }
 \usage{
-EffPlot(des=NULL,nfac=3,mod=1,dir=1,dimensions = list(NULL))
+EffPlot(des=NULL,nfac=3,mod=1,dir=1)
 }
 \arguments{
   \item{des}{ data frame containing the design points and response data for a mixture experiment. The 
@@ -15,10 +15,9 @@ EffPlot(des=NULL,nfac=3,mod=1,dir=1,dimensions = list(NULL))
               plots for linear models can be made when the number of factors is greater than 6.}
   \item{nfac}{The number of mixture components in the model.}			  
   \item{mod}{ an interger representing the model to be traced: 1 for a linear model,
-              2 for a quadratic model, and 3 for a special cubic model, 4 for a user model.}
-  \item{dir}{ an interger representing the direction for which the effect plot is made: 1 for
-               Pieple direction, 2 for Cox direction.}
-  \item{dimensions}{ A vector of names of mixture components in the lm object if it is supplied.}
+              2 for a quadratic model, and 4 for a special cubic model. For models other than these, use the ModelEff function.}
+  \item{dir}{ an integer representing the direction for which the effect plot is made: 1 for
+               Piepel direction, 2 for Cox direction.}
 }
 \value{
  \item{PX}{This is a matrix containing the coordinates of the effect plot traces that are plotted. }
@@ -82,6 +81,13 @@ y<-c(5.75,3.69,5.33,5.68,3.85,3.83,5.88,5.87,5.23,6.54,6.82,6.41)
 des<-data.frame(dat[,1:3],y)
 EffPlot(des,3)
 
-
+# Cornell's example of blending pesticides for control of mites (special cubic model)
+mite<-SCD(4)
+yavg<-c(1.8,25.4,28.6,38.5,4.9,3.1,28.7,3.4,37.4,10.7,22.0,2.6,2.4,
+        11.1,0.8)
+mite<-cbind(mite,yavg)
+mite2<-mite
+names(mite2)<-c("x1","x2","x3","x4","y")
+EffPlot(des=mite2,mod=4,dir=2)
 }
 \keyword{hplot }

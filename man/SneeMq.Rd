@@ -1,7 +1,7 @@
 \name{SneeMq}
 \docType{data}
 \alias{SneeMq}
-\title{Data from Snee and Marquart's Screening Experiment with contreined mixture components}
+\title{Data from Snee and Marquart's Screening Experiment with contsrained mixture components}
 \description{
    This is an .rda file design and response.
 }

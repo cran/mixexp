@@ -5,7 +5,7 @@ MixturePlot = function(x=NULL,y=NULL,z=NULL,w=NULL,des=NULL,
                        x2lab="Fraction X2", x1lab="Fraction X1", 
                        corner.labs = NULL,
                        colorkey=list(dx=0.04,x0=0.95,y0=0.45,y1=0.90,add=TRUE,mode="all"),
-                       pseudo=FALSE,user.func=NULL)
+                       pseudo=FALSE)
 {
   
   ##############################################
@@ -22,8 +22,7 @@ MixturePlot = function(x=NULL,y=NULL,z=NULL,w=NULL,des=NULL,
   # cols if TRUE regions between contour lines will be colored
   # despts if TRUE plots the design points in data frame des or vectors x, y, z
   # color.palette is the color palette to use.
-  # mod is an indicator for the model 1=linear, 2=quadratic, 3=special cubic, NA=user specified function
-  #   in user.func
+  # mod is an indicator for the model 1=linear, 2=quadratic, or 4=special cubic
   # x3lab label for the x3 axis
   # x2lab label for the x2 axis
   # x1lab label for the x1 axis
@@ -31,13 +30,14 @@ MixturePlot = function(x=NULL,y=NULL,z=NULL,w=NULL,des=NULL,
   # colorkey  list with locations of the color key
   # psuedo if TRUE uses psuedo components to zoom in on constrained region.  Will create the smallest
   #  equilateral triangle that still contains the whole constrained region.
-  # user.func is a function supplied by the user that takes as arguments a dataframe called 'grid'
-  # 	containing columns 'x', 'y', and 'z' and returns a predicted 'w' for each row in 'grid'.
-  # ... additional arguments for user.func besides 'grid'
+  
   
   if((constrts | pseudo) & sum(lims == rep(0,6)) == 6 ){
     stop("Component limits must be specified with the 'lims' argument to plot constraints or to use pseudo components")
   }
+  # check for valid mod
+  if(mod < 1 | mod == 3| mod > 4) 
+    stop("mod must be one of the following: 1 = linear, 2 = quadratic, or 4 = Special Cubic")
   
   if (is.null(des)){
     if (is.null(x)) 
@@ -85,19 +85,16 @@ MixturePlot = function(x=NULL,y=NULL,z=NULL,w=NULL,des=NULL,
       ## This is the Scheffe Quadratic model
       fm1 = lm(w~x+y+z+x*y+x*z+y*z-1)
     } 
-    if (mod==3) {
+    if (mod==4) {
       ## This is the Scheffe Special Cubic Model
       fm1 = lm(w~x+y+z+x*y+x*z+y*z+x*y*z-1)
     }
   }
   ## Create a new dataset using the model
   if (is.na(mod)==TRUE){
-    if(is.null(user.func)==TRUE){
-      stop("There must be a model specified or a user supplied function for predictions on the simplex")
-    }else{
-      trian$w=user.func(grid=new2) #add ... to argument when creating the function
+      stop("There must be a model specified")
     }
-  }else{	
+    else{	
     trian$w = predict(fm1, newdata=data.frame(new2))
   }	
   

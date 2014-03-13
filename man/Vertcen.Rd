@@ -1,7 +1,7 @@
 \name{Vertcen}
 \alias{Vertcen}
 \title{ Loads compiled fortran in shared file cnvrt}
-\description{This function loads and runs the compiled fortran code cnvrt. cnvrt is Pieple's 1988 JQT fortran code for extreme vertices designs. }
+\description{This function loads and runs the compiled fortran code cnvrt. cnvrt is Piepel's 1988 JQT fortran code for extreme vertices designs. }
 \usage{ 
 Vertcen(ndm,nvrr,ncon2,rtheta2) 
 }

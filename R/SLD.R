@@ -1,6 +1,8 @@
 SLD<-function(fac, lev){
  if(fac >12) 
   stop("This function only handles 12 or less factors.","\n")
+ if(lev >5)
+  stop("This function only works for 5 levels or less")
              
 cnames<-paste("x",1:fac, sep="")
    while (fac==2) {

@@ -1,15 +1,14 @@
 \name{Burn}
 \docType{data}
 \alias{Burn}
-\title{Data from Table 3 in GallantBruckPrickett(2006)}
+\title{Data from Table 4 in Gallant,Prickett, Cesarec, and Bruck(2008)}
 \description{
-   This is an .rda file containing a mixture-process variable experiment with 3 mixture components and one process variable. The data
-   has been modified from the original article so that the sum of the tree mixure components is 1.0.
+   This is an .rda file containing a mixture-process variable experiment with 3 mixture components and one process variable. z is the coded value of RPM, and y is average Burning rate for test presure 500(psig) 
 }
-\usage{data(SneeMq)}
-\format{ An 15 x 11 data frame}
+\usage{data(Burn)}
+\format{ An 15 x 5 data frame}
 \source{source}
 \references{ 
-    Gallant, F.M., Bruck, H.A. and Prickett, S.E. (2006) Effects of Twin-Screw Extrusion Processing on the Burning Rate of Composite Propellants, \emph{Propellants, Explosives, Pyrotechnics}, Vol. 31, pp 456-465.
+    Gallant, F.M., Prickett, S.E. Cesarec, M. and Bruck, H.A.(2008) Ingredients and processing effects on burning rates of composite rocket propellants utilizing a reduced-run mixture-process experiment design, \emph{Chemometrics and intellegent laboratory systems}, Vol. 90, pp 49-63.
 }
 \keyword{datasets}

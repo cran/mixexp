@@ -1,11 +1,11 @@
-EffPlot = function(des=NULL,nfac=3,mod=1,dir=1,dimensions = list(NULL))
+EffPlot = function(des=NULL,nfac=3,mod=1,dir=1)
 {
   # glimit is the resolution for the plot
   glimit<-25
   
   # check for valid mod
-  if(mod < 1 | mod > 3) 
-    stop("mod must be a number between 1 and 3")
+  if(mod < 1 | mod == 3| mod > 4) 
+    stop("mod must be one of the following: 1 = linear, 2 = quadratic, or 4 = Special Cubic")
   
   # get the number of factors from the design
   if(! is.null(des)) {
@@ -20,7 +20,7 @@ EffPlot = function(des=NULL,nfac=3,mod=1,dir=1,dimensions = list(NULL))
     stop("The number factors must be between 2 and 12")
   if (nfac>=7 & mod>=2)
     stop("Linear models only when the number of factors is greater than 6")
-  if (nfac<3 & mod==3)
+  if (nfac<3 & mod==4)
     stop("Special cubic model requires at least 3 factors")
   
   # initialize lower and upper bounds
@@ -122,7 +122,7 @@ EffPlot = function(des=NULL,nfac=3,mod=1,dir=1,dimensions = list(NULL))
       }
     }
     
-    if (mod==3) {
+    if (mod==4) {
       if (nfac==3)  {
         modl<-lm(y~x1+x2+x3+x1*x2+x1*x3+x2*x3+x1*x2*x3-1,data=des)
         Beta<-modl$coeff
@@ -459,7 +459,7 @@ EffPlot = function(des=NULL,nfac=3,mod=1,dir=1,dimensions = list(NULL))
     }
     
     
-    if (mod==3) {
+    if (mod==4) {
       if (nfac==3) {
         Xmat<-cbind(Xtemp,Xtemp[,1]*Xtemp[,2],Xtemp[,1]*Xtemp[,3],Xtemp[,2]*Xtemp[,3],Xtemp[,1]*Xtemp[,2]*Xtemp[,3])
       }
@@ -474,7 +474,7 @@ EffPlot = function(des=NULL,nfac=3,mod=1,dir=1,dimensions = list(NULL))
       }
     }
     
-    if(mod<=3) {
+    if(mod <=2 | mod == 4) {
       yhX<-Xmat%*%Beta
     }
     
@@ -531,7 +531,7 @@ EffPlot = function(des=NULL,nfac=3,mod=1,dir=1,dimensions = list(NULL))
   }
   
   
-  #  return(PX)
+    return(PX)
 }
 ##############################################################
 

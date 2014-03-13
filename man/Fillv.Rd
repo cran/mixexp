@@ -1,8 +1,8 @@
 \name{Fillv}
 \alias{Fillv}
-\title{This function duplicates SAS macro adxfill.}
+\title{This function Creates interior points in an existing mixture design.}
 \description{This function creates interior points in a mixture design by averaging all 
-possible pairs of design points. }
+possible pairs of design points. It duplicates SAS macro adxfill. }
 \usage{ 
 Fillv(nfac,des) 
 }

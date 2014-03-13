@@ -1,5 +1,5 @@
-DesignPoints = function (des = NULL,nmxcmp=3, x = NULL, y = NULL, z = NULL, x1lower = 0, 
-                         x1upper = 0, x2lower = 0, x2upper = 0, x3lower = 0, x3upper = 0,
+DesignPoints = function (des = NULL,nmxcmp=3, x = NULL, y = NULL, z = NULL,x1lower=0,x1upper=0,
+                         x2lower=0, x2upper=0,x3lower=0,x3upper=0,
                          cornerlabs = c("x3","x2","x1"),
                          axislabs=c("x1","x2","x3"),pseudo=FALSE)
 {
@@ -33,22 +33,16 @@ DesignPoints = function (des = NULL,nmxcmp=3, x = NULL, y = NULL, z = NULL, x1lo
     z<-des[ ,1]
   }
   w <- runif(length(x))
-  Check <- x1lower + x1upper + x2lower + x2upper + x3lower + 
-    x3upper
-  if (Check == 0) {
-    cls <- c(rep(0, 6))
-    constraints = FALSE
-  }
-  else {
-    cls <- c(rep(0, 6))
-    cls[1] <- x1lower
-    cls[2] <- x1upper
-    cls[3] <- x2lower
-    cls[4] <- x2upper
-    cls[5] <- x3lower
-    cls[6] <- x3upper
-    constraints = TRUE
-  }
+
+cls<-c(rep(0,6))
+cls[1]<-min(z)
+cls[2]<-max(z)
+cls[3]<-min(y)
+cls[4]<-max(y)
+cls[5]<-min(x)
+cls[6]<-max(x)
+if (max(cls[1],cls[3],cls[5])>0 | min(cls[2],cls[4],cls[6])<1) {constraints= TRUE} else {constraints=FALSE}
+
   MixturePlot(x, y, z, w, x3lab = axislabs[3], x2lab = axislabs[2], 
               x1lab = axislabs[1], corner.labs = cornerlabs, 
               lims = cls, constrts = constraints, contrs = FALSE, cols = FALSE, 
