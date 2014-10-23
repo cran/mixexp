@@ -24,7 +24,7 @@ des<-SCD(4)
 Fillv(4,des)
 
 # Example 3 fills interior of Extreme vertices design
-ev<-Xvert(3,x1=c(0,.1),x2=c(0,.1),x3=c(0,1),ndm=1)
+ev<-Xvert(3,uc=c(.1,.1,1.0),lc=c(0,0,0),ndm=1)
 ev2<-Fillv(3,ev)
 
 }

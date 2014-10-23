@@ -62,8 +62,11 @@ ModelPlot(user.func = NULL, dimensions = list(x1=NULL,x2=NULL,x3=NULL),
 mite<-SCD(4)
 yavg<-c(1.8,25.4,28.6,38.5,4.9,3.1,28.7,3.4,37.4,10.7,22.0,2.6,2.4,
 11.1,0.8)
-mitemd<-lm(yavg~-1+x1+x2+x3+x4+x1:x2+x1:x3+x1:x4+x2:x3+x2:x4+x3:x4+
-x1:x2:x3+x1:x2:x4+x1:x3:x4+x2:x3:x4+x1:x2:x3:x4, data=cbind(mite,yavg))
+mitemd<-MixModel(cbind(mite,yavg),"yavg",c("x1","x2","x3","x4"),4)  
+### plot of this model looks different than article
+#mitemd<-lm(yavg~-1+x1+x2+x3+x4+x1:x2+x1:x3+x1:x4+x2:x3+x2:x4+x3:x4+ 
+### plot of thhis model looks like article
+#x1:x2:x3+x1:x2:x4+x1:x3:x4+x2:x3:x4+x1:x2:x3:x4, data=cbind(mite,yavg))
 miteprd=function(grid)
  { ygrid=predict(mitemd,grid)
      return(ygrid)

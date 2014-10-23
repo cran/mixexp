@@ -3,13 +3,14 @@
 \title{This function plots design points and or constraints in the simplex mixture space.}
 \description{ This function plots design points and or constraints in the simplex mixture space. It calls the function MixturePlot that does the actual plotting.}
 \usage{ 
-DesignPoints(des = NULL, x = NULL, y = NULL, z = NULL, x1lower = 0, 
-    x1upper = 0, x2lower = 0, x2upper = 0, x3lower = 0, x3upper = 0,
-    axislabs=c("Fraction x1","Fraction x2","Fraction x3"),
-    cornerlabs = c("x1","x2","x3"))
+DesignPoints(des = NULL,nmxcmp=3, x = NULL, y = NULL, z = NULL, x1lower = 0, 
+                         x1upper = 0, x2lower = 0, x2upper = 0, x3lower = 0, x3upper = 0,
+                         cornerlabs = c("x3","x2","x1"),
+                         axislabs=c("x1","x2","x3"),pseudo=FALSE)
 }
 \arguments{
   \item{des}{data frame containing x1 x2 and x3 coordinates of data points to be plotted}
+  \item{nmxcmp}{interger indicating the number of mixture components in the design}
   \item{x}{ vector of x3 coordinates of design points to be plotted} 
   \item{y}{ vector of x2 coordinates of design points to be plotted}
   \item{z}{ vector of x1 coordinates of design points to be plotted}
@@ -21,6 +22,7 @@ DesignPoints(des = NULL, x = NULL, y = NULL, z = NULL, x1lower = 0,
   \item{x3upper}{ This is the upper constraint on x3}
   \item{axislabs}{ This is a vector of text labels for the x1, x2 and x3 axis.}
   \item{cornerlabs}{ This is a vector of text labels for the x1, x2 and x3 vertices.}
+  \item{pseudo}{logical variable, when TRUE plot in pseudo component space when there are lower constraints. }
 }
 
 \references{

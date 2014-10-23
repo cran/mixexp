@@ -37,6 +37,7 @@ Eflags                  function for calling Piepel's fortran code cnvrt
 						                        error messages
 Effplot                 function for making mixture effect plots 
 MixturePlot             function for making contour plots in simplex region
+MixModel                function for fitting mixture models to data
 ModelPlot               function for making contour plots of an equation created 
                                                 in by the lm function
 Nrows                   function for calling Piepel's fortran code cnvrt to 

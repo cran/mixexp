@@ -1,11 +1,14 @@
-EffPlot = function(des=NULL,nfac=3,mod=1,dir=1,dimensions = list(NULL))
+ModelEff = function(des=NULL,nfac=3,mod=1,dir=1,ufunc=NULL,dimensions = list(NULL),
+                   x1=c(0,1),x2=c(0,1),x3=c(0,1),x4=c(0,1),x5=c(0,1),x6=c(0,1),x7=c(0,1),x8=c(0,1),x9=c(0,1),x10=c(0,1),x11=c(0,1),x12=c(0,1))
 {
   # glimit is the resolution for the plot
   glimit<-25
   
   # check for valid mod
-  if(mod < 1 | mod > 3) 
-    stop("mod must be a number between 1 and 3")
+  if(mod < 1 | mod > 4) 
+    stop("mod must be a number between 1 and 4")
+  if(mod==4 & is.null(ufunc))
+    stop("When mod=4, you must supply the user model as an lm function through ufunc=object")
   
   # get the number of factors from the design
   if(! is.null(des)) {
@@ -14,28 +17,12 @@ EffPlot = function(des=NULL,nfac=3,mod=1,dir=1,dimensions = list(NULL))
   }
   
   # checks for valid number of factors
-  
-  
   if (nfac<2 | nfac>12)
     stop("The number factors must be between 2 and 12")
   if (nfac>=7 & mod>=2)
     stop("Linear models only when the number of factors is greater than 6")
-  if (nfac<3 & mod==3)
+  if (nfac<3 & mod>3)
     stop("Special cubic model requires at least 3 factors")
-  
-  # initialize lower and upper bounds
-  x1<-c(0,1)
-  x2<-c(0,1)
-  x3<-c(0,1)
-  x4<-c(0,1)
-  x5<-c(0,1)
-  x6<-c(0,1)
-  x7<-c(0,1)
-  x8<-c(0,1)
-  x9<-c(0,1)
-  x10<-c(0,1)
-  x11<-c(0,1)
-  x12<-c(0,1)
   
   
   # set up lower and upper bounds for factors if design is in des
@@ -139,7 +126,13 @@ EffPlot = function(des=NULL,nfac=3,mod=1,dir=1,dimensions = list(NULL))
         modl<-lm(y~x1+x2+x3+x4+x5+x6+x1*x2+x1*x3+x1*x4+x1*x5+x1*x6+x2*x3+x2*x4+x2*x5+x2*x6+x3*x4+x3*x5+x3*x6+x4*x5+x4*x6+x5*x6+x1*x2*x3+x1*x2*x4+x1*x2*x5+x1*x2*x6+x1*x3*x4+x1*x3*x5+x1*x3*x6+x1*x4*x5+x1*x4*x6+x1*x5*x6+x2*x3*x4+x2*x3*x5+x2*x3*x6+x2*x4*x5+x2*x4*x6+x2*x5*x6+x3*x4*x5+x3*x4*x6+x3*x5*x6+x4*x5*x6-1,data=des)
         Beta<-modl$coeff 
       }
-    }   
+    }
+    if (mod==4) {
+      modl<-lm(y~.-1,data=des)
+      Beta<-ufunc$coeff
+    }
+    
+    
     
     ## end of calculations involving the data frame des
   }
@@ -179,7 +172,6 @@ EffPlot = function(des=NULL,nfac=3,mod=1,dir=1,dimensions = list(NULL))
   for (i in 1:nfac) {
     pcent[i]<-(cent[i]-ck[1,i])/Den
   }
-  
   
   # create grid
   grid<-glimit:1
@@ -478,6 +470,15 @@ EffPlot = function(des=NULL,nfac=3,mod=1,dir=1,dimensions = list(NULL))
       yhX<-Xmat%*%Beta
     }
     
+    if(mod==4) {
+      Xmatdf<-data.frame(Xmat)
+      colnames(Xmatdf)<-dimensions
+      yhU<-predict(ufunc,Xmatdf)
+      yhX<-yhU
+    }
+    
+    
+    
     
     # get deviations from centroid
     DX<-c(rep(0,times=(2*glimit+1)))
@@ -531,7 +532,7 @@ EffPlot = function(des=NULL,nfac=3,mod=1,dir=1,dimensions = list(NULL))
   }
   
   
-  #  return(PX)
+  return(PX)
 }
 ##############################################################
 

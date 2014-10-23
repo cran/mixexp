@@ -1,12 +1,14 @@
-\name{EffPlot}
-\alias{EffPlot}
+\name{ModelEff}
+\alias{ModelEff}
 \title{ This function creates mixture effect plots
 }
 \description{
 This function makes effect plots using the Cox or Pieple directions in constrained mixture space.
 }
 \usage{
-EffPlot(des=NULL,nfac=3,mod=1,dir=1,dimensions = list(NULL))
+ModelEff(des=NULL,nfac=3,mod=1,dir=1,ufunc=NULL,dimensions = list(NULL),
+x1=c(0,1),x2=c(0,1),x3=c(0,1),x4=c(0,1),x5=c(0,1),x6=c(0,1),x7=c(0,1),
+x8=c(0,1),x9=c(0,1),x10=c(0,1),x11=c(0,1),x12=c(0,1))
 }
 \arguments{
   \item{des}{ data frame containing the design points and response data for a mixture experiment. The 
@@ -18,7 +20,20 @@ EffPlot(des=NULL,nfac=3,mod=1,dir=1,dimensions = list(NULL))
               2 for a quadratic model, and 3 for a special cubic model, 4 for a user model.}
   \item{dir}{ an interger representing the direction for which the effect plot is made: 1 for
                Pieple direction, 2 for Cox direction.}
+  \item{ufunc}{ A user function, this should be an lm object.}
   \item{dimensions}{ A vector of names of mixture components in the lm object if it is supplied.}
+  \item{x1}{a vector containing lower and upper constraints on x1.}
+  \item{x2}{a vector containing lower and upper constraints on x2.}
+  \item{x3}{a vector containing lower and upper constraints on x3.}
+  \item{x4}{a vector containing lower and upper constraints on x4.}
+  \item{x5}{a vector containing lower and upper constraints on x5.}
+  \item{x6}{a vector containing lower and upper constraints on x6.}
+  \item{x7}{a vector containing lower and upper constraints on x7.}
+  \item{x8}{a vector containing lower and upper constraints on x8.}
+  \item{x9}{a vector containing lower and upper constraints on x9.}
+  \item{x10}{a vector containing lower and upper constraints on x10.}
+  \item{x11}{a vector containing lower and upper constraints on x11.}
+  \item{x12}{a vector containing lower and upper constraints on x12.}
 }
 \value{
  \item{PX}{This is a matrix containing the coordinates of the effect plot traces that are plotted. }
@@ -41,7 +56,7 @@ x2<-c(.214,.428,.500,.357,.214,.500,.500)
 x3<-c(.214,.214,.214,.357,.500,.357,.143)
 y<-c(7.7,18.4,24.2,9.8,5.9,23.0,19.4)
 des<-data.frame(x1,x2,x3,y)
-EffPlot(des,2,2)
+ModelEff(des,2,2)
 
 
 #Example from Snee, Marquart(1976)
@@ -55,7 +70,7 @@ x7<-c(.05,.05,0,.05,0,0,0,.05,.05,0,.05,0,.05,0,.05,0,.025,.025,.025,.025)
 x8<-c(.05,.05,0,0,0,.05,.05,0,.05,.05,0,0,.05,0,0,.05,.025,.025,.025,.025)
 y<-c(30,113,17,94,89,18,90,20,21,15,28,48,18,7,16,19,38,30,35,40)
 des<-data.frame(x1,x2,x3,x4,x5,x6,x7,x8,y)
-EffPlot(des,mod=1,dir=1)
+ModelEff(des,mod=1,dir=1)
 
 
 
@@ -65,7 +80,7 @@ x2<-c(0,1,0,.5,0,.5,.33333,.33333,.33333)
 x3<-c(0,0,1,0,.5,.5,.33333,.33333,.33333)
 y<-c(73,68,80,77,86,75,92,93,88)
 des<-data.frame(x1,x2,x3,y)
-EffPlot(des,3)
+ModelEff(des,3)
 
 
 
@@ -80,7 +95,7 @@ dat<-rbind(dat,dat[10, ],dat[10,])
 y<-c(5.75,3.69,5.33,5.68,3.85,3.83,5.88,5.87,5.23,6.54,6.82,6.41)
 # make the data frame for plotting
 des<-data.frame(dat[,1:3],y)
-EffPlot(des,3)
+ModelEff(des,3)
 
 
 }

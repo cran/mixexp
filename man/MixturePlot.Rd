@@ -6,10 +6,14 @@
 This function makes contour plots in the simplex mixture space, it also can draw constraint lines and show design points.
 }
 \usage{
-MixturePlot(x,y,z,w,des,res,lims,color.palette,constrts,contrs,n.breaks,levels,
-            cols,despts,mod,x3lab,x2lab,x1lab, corner.labs,
-            colorkey=list(dx=0.04,x0=0.95,y0=0.45,y1=0.90,add=TRUE,mode="all"),
-            pseudo=FALSE,user.func=NULL)
+MixturePlot(x=NULL,y=NULL,z=NULL,w=NULL,des=NULL,
+                       res=400,lims=c(rep(0,6)),color.palette = heat.colors,
+                       constrts=FALSE,contrs=TRUE,n.breaks=10,levels=NULL,
+                       cols=FALSE, despts=TRUE, mod=NA,x3lab="Fraction X3",
+                       x2lab="Fraction X2", x1lab="Fraction X1", 
+                       corner.labs = NULL,
+                       colorkey=list(dx=0.04,x0=0.95,y0=0.45,y1=0.90,add=TRUE,mode="all"),
+                       pseudo=FALSE,user.func=NULL)
 }
 \arguments{
   \item{x}{x3 locations for known points} 
