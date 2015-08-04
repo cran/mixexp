@@ -6,8 +6,6 @@ This package contains functions for creating designs for mixture experiments and
 }
 \description{The \pkg{mixexp} package provides functions for creating mixture experiment designs in an unconstrained simplex or constrained mixture space. Functions are also 
 provided for making ternary contour plots, pictures of constrained regions, design points, and mixture effect plots.  
-
-
 }
 
 \details{

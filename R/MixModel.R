@@ -331,7 +331,7 @@ MixModel <- function(frame, response, mixcomps=NULL,model,procvars=NULL)  {
   print(result)
   cat("    ", "\n")
   cat("Residual standard error: ",sqrt(sse/dft), " on ", dft, "degrees of freedom","\n")
-  cat("Multiple R-squared: ", Rsquare)
+  cat("Corrected Multiple R-squared: ", Rsquare)
   # Return the model so that it can be used by ModelPlot and ModelEff
   
   #ck2<-summary(ModelFNI)

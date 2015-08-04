@@ -17,23 +17,24 @@ MixModel(frame, response, mixcomps=NULL,model,procvars=NULL)
   \item{mixcomps}{a character vector of column names of the mixture components in frame}
   \item{model}{ an integer in the range of 1 to 6, indicating the model to be fit:
   
-  1= \eqn{y=\sum_{i=1}^{q} \beta_i x_i + \epsilon.},
+  \eqn{1.  y=\sum_{i=1}^{q} \beta_i x_i + \epsilon.}{1. y = sum from 1 to q (\beta(i)x(i))  + \epsilon}.
   
-  2= \eqn{y=\sum_{i=1}^{q} \beta_i x_i + \sum_{i=1}^{q-1} \sum_{j=i+1}^{q} \beta_{ij} x_i x_j + \epsilon.},
-  
-  3= \eqn{y=\sum_{i=1}^{q} \beta_i x_i + \sum_{i=1}^{q-1} \sum_{j=i+1}^{q} \beta_{ij} x_i x_j  + \sum_{i=1}^{q-1} \sum_{j=i+1}^{q} \delta_{ij} x_i x_j (x_i - x_j) + \sum_{i=1}^{q-2} \sum_{j=i+1}^{q-1} \sum_{k=j+1}^{q} \beta_{ijk} x_i x_j x_k + \epsilon.},
-  
-  4= \eqn{y=\sum_{i=1}^{q} \beta_i x_i + \sum_{i=1}^{q-1} \sum_{j=i+1}^{q} \beta_{ij} x_i x_j   + \sum_{i=1}^{q-2} \sum_{j=i+1}^{q-1} \sum_{k=j+1}^{q} \beta_{ijk} x_i x_j x_k + \epsilon. },
-  
-  5= \eqn{y = ( \sum_{i=1}^{q} \beta_i x_i + \sum_{i=1}^{q-1} \sum_{j=i+1}^{q} \beta_{ij} x_i x_j )(\alpha_0 + \sum_{l=1}^{p} \alpha_l z_l + \sum_{l=1}^{p-1} \sum_{m=l+1}^{p} \alpha_{lm} z_l z_m )},
-  
-  6= \eqn{y=\sum_{i=1}^{q} \beta_i^{(0)} x_i + \sum_{i=1}^{q-1} \sum_{j=i+1}^{q} \beta_{ij}^{(0)} x_i x_j  + \sum_{k=1}^m \left[\sum_{i=1}^{q} \beta_i^{(1)} x_i \right]z_k + \sum_{k=1}^{m-1} \sum_{l=k+1}^m \alpha_{kl} z_k z_l + \sum_{k=1}^m \alpha_{kk} z_k^2 + \epsilon.},
-  
-  where \eqn{x_i} are mixture components, and \eqn{z_j} are process variables.
+  \eqn{2. y=\sum_{i=1}^{q} \beta_i x_i + \sum_{i=1}^{q-1} \sum_{j=i+1}^{q} \beta_{ij} x_i x_j + \epsilon.}{2. y = sum from i=1 to q (\beta(i)x(i)) + sum from i=1 to q-1 sum j=i+1 to q (\beta(ij)x(i)x(j)) + \epsilon}.
   
   
+  \eqn{3. y=\sum_{i=1}^{q} \beta_i x_i + \sum_{i=1}^{q-1} \sum_{j=i+1}^{q} \beta_{ij} x_i x_j  + \sum_{i=1}^{q-1} \sum_{j=i+1}^{q} \delta_{ij} x_i x_j (x_i - x_j) + \sum_{i=1}^{q-2} \sum_{j=i+1}^{q-1} \sum_{k=j+1}^{q} \beta_{ijk} x_i x_j x_k + \epsilon.}{3. y = sum from i=1 to q (\beta(i)x(i)) + sum from i=1 to q-1 sum j=i+1 to q (\beta(ij)x(i)x(j)) + sum i=1 to q-1 sum j=i+1 to q (\delta(ij)x(i)x(j)(x(i)-x(j)) + sum i=1 to q-2 sum j=i+1 to q-1 sum k=j+1 to q (\beta(ijk)x(i)x(j)x(k)) + \epsilon}.
+  
+  \eqn{4. y=\sum_{i=1}^{q} \beta_i x_i + \sum_{i=1}^{q-1} \sum_{j=i+1}^{q} \beta_{ij} x_i x_j   + \sum_{i=1}^{q-2} \sum_{j=i+1}^{q-1} \sum_{k=j+1}^{q} \beta_{ijk} x_i x_j x_k + \epsilon.}{4. y = sum from i=1 to q (\beta(i)x(i)) + sum from i=1 to q-1 sum j=i+1 to q (\beta(ij)x(i)x(j))  + sum i=1 to q-2 sum j=i+1 to q-1 sum k=j+1 to q (\beta(ijk)x(i)x(j)x(k)) + \epsilon}.
+  
+  
+  \eqn{5. y = ( \sum_{i=1}^{q} \beta_i x_i + \sum_{i=1}^{q-1} \sum_{j=i+1}^{q} \beta_{ij} x_i x_j )(\alpha_0 + \sum_{l=1}^{p} \alpha_l z_l + \sum_{l=1}^{p-1} \sum_{m=l+1}^{p} \alpha_{lm} z_l z_m ) + \epsilon}{5. y = (sum from i=1 to q (\beta(i)x(i)) + sum from i=1 to q-1 sum j=i+1 to q (\beta(ij)x(i)x(j))) (\alpha(0)+sum from l=1 to p (\alpha(l)z(l)) + sum from l=1 to p-1 sum from m=l+1 to p (\alpha(lm)z(l)z(m)))+ \epsilon}.
+  
+  \eqn{6. y=\sum_{i=1}^{q} \beta_i^{(0)} x_i + \sum_{i=1}^{q-1} \sum_{j=i+1}^{q} \beta_{ij}^{(0)} x_i x_j  + \sum_{k=1}^m \left[\sum_{i=1}^{q} \beta_i^{(1)} x_i \right]z_k + \sum_{k=1}^{m-1} \sum_{l=k+1}^m \alpha_{kl} z_k z_l + \sum_{k=1}^m \alpha_{kk} z_k^2 + \epsilon.}{6.  y = sum from i=1 to q (\beta^0(i)x(i)) + sum from i=1 to q-1 sum j=i+1 to q (\beta^0(ij)x(i)x(j)) + sum from k=1 to m[sum from i=1 to q \beta^1x(i)]z(k) + sum k=1 to m-1 sum from l=k+1 to m \alpha(kl)z(k)z(l) + sum from k=1 to m \alpha(kk)z^2(k)+ \epsilon}
+  
+  where \eqn{x_i}{x(i)} are mixture components, and \eqn{z_j}{z(j)} are process variables.
+   
   }
-  \item{procvars}{a character vector of column names of the process variables in frame to be 
+\item{procvars}{a character vector of column names of the process variables in frame to be 
                   included in the model. Leave this out if there are no process variables in the
                   frame}
           }        

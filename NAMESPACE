@@ -1,5 +1,9 @@
 useDynLib(mixexp)
 import(gdata, lattice, grid, daewr)
+importFrom("grDevices","heat.colors")
+importFrom("graphics","lines","plot","text")
+importFrom("stats","lm","predict","pt","runif","vcov")
+importFrom("utils","combn")
 export(crvtave,
        EffPlot,
        cubic,
