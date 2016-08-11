@@ -26,6 +26,10 @@ EffPlot(des=NULL,nfac=3,mod=1,dir=1)
 1. Piepel, G. F. "Measuring Component Effects in Constrained Mixture Experiments" 
 \emph{Technometrics}, Vol 25, pp. 97-105, 1982.
 
+2. "John Lawson, Cameron Willden (2016).",
+        "Mixture Experiments in R Using mixexp.",
+        "Journal of Statistical Software, Code Snippets, 72(2), 1-20.",
+        "doi:10.18637/jss.v072.c02".
 }
 \note{ This function calls the function crvtave to get the design centroid from cnvrt.}
 \author{ John S. Lawson \email{lawson@byu.edu}}

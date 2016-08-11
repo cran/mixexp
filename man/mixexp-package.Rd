@@ -54,4 +54,9 @@ John Lawson <lawson@byu.edu> and Cameron Willden <ccwillden@gmail.com>
 
 Maintainer: John Lawson <lawson@byu.edu>
 }
+\references{1. "John Lawson, Cameron Willden (2016).",
+        "Mixture Experiments in R Using mixexp.",
+        "Journal of Statistical Software, Code Snippets, 72(2), 1-20.",
+        "doi:10.18637/jss.v072.c02"
+}    
 \keyword{ package }

@@ -29,6 +29,10 @@ DesignPoints(des = NULL,nmxcmp=3, x = NULL, y = NULL, z = NULL,x1lower=0,x1upper
 1. Piepel, G. F. "Programs for Generating Extreme Vertices and Centroids of Linearly Consrtained Experimental Regions"
 \emph{Journal of Quality Technology}, Vol 20, No. 2, pp. 125-139, 1988.
 
+2. "John Lawson, Cameron Willden (2016).",
+        "Mixture Experiments in R Using mixexp.",
+        "Journal of Statistical Software, Code Snippets, 72(2), 1-20.",
+        "doi:10.18637/jss.v072.c02"
 }
 \note{ This function calls MixturePlot. If either des and x,y,z are missing no design points will be plotted, and if x1lower, x1upper, etc. are all zero no constraints will be plotted. If there are more than 3 columns of mixture components in des, only the first 3 will be plotted ignoring the others. }
 \author{ John S. Lawson \email{lawson@byu.edu}}

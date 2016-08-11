@@ -44,6 +44,11 @@ MixturePlot(x=NULL,y=NULL,z=NULL,w=NULL,des=NULL,
 
 2. See R Ternary Level Plot Function http://www.siftp.net/index.shtml
 
+3. "John Lawson, Cameron Willden (2016).",
+        "Mixture Experiments in R Using mixexp.",
+        "Journal of Statistical Software, Code Snippets, 72(2), 1-20."
+        "doi:10.18637/jss.v072.c02"
+
 }
 
 \author{ John S. Lawson \email{lawson@byu.edu}}

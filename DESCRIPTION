@@ -1,6 +1,6 @@
 Package: mixexp
-Version: 1.2.3
-Date: 2015-8-4
+Version: 1.2.4
+Date: 2016-8-11
 Type: Package
 Title: Design and Analysis of Mixture Experiments
 Authors@R: c(person("John","Lawson", role=c("aut","cre"), email="lawson@byu.edu"),
@@ -16,7 +16,10 @@ Description: Functions for creating designs for mixture experiments, making tern
 License: GPL (>= 2)
 LazyLoad: yes
 LazyData: yes
-Packaged: 2015-08-12 15:29:06 UTC; Lawson
-NeedsCompilation: yes
 Repository: CRAN
-Date/Publication: 2015-08-12 20:13:00
+Repository/R-Forge/Project: daewr
+Repository/R-Forge/Revision: 126
+Repository/R-Forge/DateTimeStamp: 2016-08-10 20:46:37
+Date/Publication: 2016-08-11 12:58:33
+NeedsCompilation: yes
+Packaged: 2016-08-10 21:05:25 UTC; rforge

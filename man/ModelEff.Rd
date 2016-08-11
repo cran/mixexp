@@ -37,8 +37,10 @@ pvslice=c(1,1,1),lc=c(0,0,0,0,0,0,0,0,0,0,0,0), uc=c(1,1,1,1,1,1,1,1,1,1,1,1))
 1. Piepel, G. F. "Measuring Component Effects in Constrained Mixture Experiments" 
 \emph{Technometrics}, Vol 25, pp. 97-105, 1982.
 
-2. Lawson, J. and Willden, C. "Mixture Experiments in R , using mixexp"
-\emph{JSS}, to appear.
+2. "John Lawson, Cameron Willden (2016).",
+        "Mixture Experiments in R Using mixexp.",
+        "Journal of Statistical Software, Code Snippets, 72(2), 1-20.",
+        "doi:10.18637/jss.v072.c02"
 
 3. Kowalski, S. M., Cornell, J. A. and Vining, G. G. "A  Model and Class of Designs for Mixture 
 Experiments with Process Variables"

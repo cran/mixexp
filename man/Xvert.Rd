@@ -27,6 +27,10 @@ Xvert(nfac=3,uc=c(0,0),lc=c(0,0),nlc=0,lb=c(0,0),ub=c(0,0),coef,ndm=0,plot=TRUE,
 1. Piepel, G. F. "Programs for Generating Extreme Vertices and Centroids of Linearly Consrtained Experimental Regions"
 \emph{Journal of Quality Technology}, Vol 20, No. 2, pp. 125-139, 1988.
 
+2. "John Lawson, Cameron Willden (2016).",
+        "Mixture Experiments in R Using mixexp.",
+        "Journal of Statistical Software, Code Snippets, 72(2), 1-20.",
+        "doi:10.18637/jss.v072.c02"
 }
 \note{ This function calls crvtave. If the number of factors is 3, the  function DesignPoints is called to graph the results. }
 \author{ John S. Lawson \email{lawson@byu.edu}}

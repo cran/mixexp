@@ -39,7 +39,10 @@ MixModel(frame, response, mixcomps=NULL,model,procvars=NULL)
                   frame}
           }        
 \references{
-1. Lawson, J. and Willden, C., "Mixture Experiments in R, using mixexp", Journal of Statistical Software, 2015
+1. "John Lawson, Cameron Willden (2016).",
+        "Mixture Experiments in R Using mixexp.",
+        "Journal of Statistical Software, Code Snippets, 72(2), 1-20.",
+        "doi:10.18637/jss.v072.c02"    
            }  
 \author{ John S. Lawson \email{lawson@byu.edu}}
 

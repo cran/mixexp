@@ -18,6 +18,10 @@ SCD(fac)
 \references{
 1. Cornell, J. A.  \emph{Experiments with Mixtures: Models and Analysis of Mixture Data}, John Wiley & Sons, New York, third edition, 2002.
 
+2. "John Lawson, Cameron Willden (2016).",
+        "Mixture Experiments in R Using mixexp.",
+        "Journal of Statistical Software, Code Snippets, 72(2), 1-20.",
+        "doi:10.18637/jss.v072.c02"
 }
 
 \author{ John S. Lawson \email{lawson@byu.edu}}
