@@ -1,0 +1,23 @@
+bibentry(bibtype = "Article",
+  title        = "Mixture Experiments in {R} Using {mixexp}",
+  author       = c(person(given = "John",
+                          family = "Lawson",
+                          email = "lawson@byu.edu"),
+                   person(given = "Cameron",
+                          family = "Willden",
+                          email = "ccwillden@gmail.com")),
+  journal      = "Journal of Statistical Software, Code Snippets",
+  year         = "2016",
+  volume       = "72",
+  number       = "2",
+  pages        = "1--20",
+  doi          = "10.18637/jss.v072.c02",
+
+  header       = "To cite mixexp in publications use:",
+  textVersion  =
+  paste("John Lawson, Cameron Willden (2016).",
+        "Mixture Experiments in R Using mixexp.",
+        "Journal of Statistical Software, Code Snippets, 72(2), 1-20.",
+        "doi:10.18637/jss.v072.c02")
+)
+

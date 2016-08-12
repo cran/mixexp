@@ -1,4 +1,4 @@
-2990c386cbb2570162ebf153bf8e536a *DESCRIPTION
+21bf2ee71af73b7f9ec161cd71351e99 *DESCRIPTION
 6fb7c0dcc6551bcc1c430f7a411aab6f *NAMESPACE
 77a8b1c64f1a7703a9b7f600de4c1445 *R/DesignPoints.R
 33acdfbfe08905b611bce89f057c2993 *R/EffPlot.R
@@ -20,6 +20,7 @@ a447d784bb61990a3e86539ba74f1ffa *R/Xvert.R
 3f0a2bc87be0aabc9eddd662d66a8197 *data/conmx.rda
 ca87636ada41374e20019a34b9a9cd58 *data/etch.rda
 7b88454f13ea3c8631ea1fcc059ae276 *data/fishp.rda
+a49d2fada14aa472dd599836c592b636 *inst/CITATION
 d20fc60b0019f76bf559facc6875961a *man/Burn.Rd
 2b8ebd6273aee659f6fb1497a2fca924 *man/DesignPoints.Rd
 8fb5ee4b27963340193d53f1e2eab48b *man/EffPlot.Rd
