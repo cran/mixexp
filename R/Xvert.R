@@ -26,7 +26,7 @@ Xvert = function(nfac=3,uc=c(0,0),lc=c(0,0),nlc=0,lb=c(0,0),ub=c(0,0),coef,ndm=0
   for (i in (n.uc+1):12) {
     ck<-cbind(ck,c(0,1))
   }
-  
+  nfacc=0
   for (i in 1:12){
     cks<-ck[1,i]+(1-ck[2,i])
     if (cks!=0) {
@@ -46,7 +46,12 @@ Xvert = function(nfac=3,uc=c(0,0),lc=c(0,0),nlc=0,lb=c(0,0),ub=c(0,0),coef,ndm=0
   #Creates conmx corresponding to upper and lower constraints on components
   Ip<-diag(nfac)
   In<--1*Ip
-  conmx<-interleave(Ip,In)
+  # conmx<-interleave(Ip,In)
+  conmx = matrix(data=NA,nrow=dim(Ip)[1]*2,ncol=dim(Ip)[2])
+  for (i in 1:dim(Ip)[1]){
+    conmx[2*i-1,] = Ip[i,]
+    conmx[2*i,  ] = In[i,]
+  }
   conmx<-cbind(conmx,v)
   
   # Create constraint matrix for linear constraints

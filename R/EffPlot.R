@@ -157,7 +157,12 @@ EffPlot = function(des=NULL,nfac=3,mod=1,dir=1)
   
   Ip<-diag(nfac)
   In<--1*Ip
-  conmx<-interleave(Ip,In)
+  # conmx<-interleave(Ip,In)
+  conmx = matrix(data=NA,nrow=dim(Ip)[1]*2,ncol=dim(Ip)[2])
+  for (i in 1:dim(Ip)[1]){
+    conmx[2*i-1,] = Ip[i,]
+    conmx[2*i,  ] = In[i,]
+  }
   conmx<-cbind(conmx,v)
   
   # calls crvtave to create exteme vertices design plus centroid

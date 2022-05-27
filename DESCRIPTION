@@ -1,6 +1,6 @@
 Package: mixexp
-Version: 1.2.5
-Date: 2016-8-12
+Version: 1.2.7
+Date: 2022-5-11
 Type: Package
 Title: Design and Analysis of Mixture Experiments
 Authors@R: c(person("John","Lawson", role=c("aut","cre"), email="lawson@byu.edu"),
@@ -11,15 +11,15 @@ Author: John Lawson [aut, cre],
   Cameron Willden [aut],
   Greg Piepel [ctb]
 Maintainer: John Lawson <lawson@byu.edu>
-Depends: gdata, lattice, grid, daewr
+Depends: lattice, grid, daewr
 Description: Functions for creating designs for mixture experiments, making ternary contour plots, and making mixture effect plots.
 License: GPL (>= 2)
 LazyLoad: yes
 LazyData: yes
 Repository: CRAN
 Repository/R-Forge/Project: daewr
-Repository/R-Forge/Revision: 128
-Repository/R-Forge/DateTimeStamp: 2016-08-12 13:23:40
-Date/Publication: 2016-08-12 16:59:05
+Repository/R-Forge/Revision: 219
+Repository/R-Forge/DateTimeStamp: 2022-05-27 02:29:40
+Date/Publication: 2022-05-27 14:30:02 UTC
 NeedsCompilation: yes
-Packaged: 2016-08-12 13:45:21 UTC; rforge
+Packaged: 2022-05-27 02:52:07 UTC; rforge
