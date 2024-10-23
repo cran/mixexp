@@ -1,6 +1,6 @@
 Package: mixexp
-Version: 1.2.7
-Date: 2022-5-11
+Version: 1.2.7.1
+Date: 2024-10-23
 Type: Package
 Title: Design and Analysis of Mixture Experiments
 Authors@R: c(person("John","Lawson", role=c("aut","cre"), email="lawson@byu.edu"),
@@ -16,10 +16,7 @@ Description: Functions for creating designs for mixture experiments, making tern
 License: GPL (>= 2)
 LazyLoad: yes
 LazyData: yes
-Repository: CRAN
-Repository/R-Forge/Project: daewr
-Repository/R-Forge/Revision: 219
-Repository/R-Forge/DateTimeStamp: 2022-05-27 02:29:40
-Date/Publication: 2022-05-27 14:30:02 UTC
 NeedsCompilation: yes
-Packaged: 2022-05-27 02:52:07 UTC; rforge
+Packaged: 2024-10-22 08:37:10 UTC; ripley
+Repository: CRAN
+Date/Publication: 2024-10-23 06:50:32 UTC

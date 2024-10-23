@@ -1,4 +1,4 @@
-8020d3c9d7f3d90dd9dd795dd0feec01 *DESCRIPTION
+82d8ae9843a5df7fcecf9afd46cd7c18 *DESCRIPTION
 e921fdd7f5d04563d1cfbc6df0d702cb *NAMESPACE
 77a8b1c64f1a7703a9b7f600de4c1445 *R/DesignPoints.R
 7cd5aac0a0edac008999271d29aa1d09 *R/EffPlot.R
@@ -42,4 +42,5 @@ ee127ab5c41ef835a7531127e9a9977a *man/Xvert.Rd
 805384136854dda2757dba49415cd9bc *man/etch.Rd
 c140dd2a7cfc3556cc082b07241d3175 *man/fishp.Rd
 9324de8e5a632fca94198591721a2f51 *man/mixexp-package.Rd
-1403c418aae6f99622671a69931d7490 *src/cnvrt.f
+e1fd770402a82febfa46b2323e804b32 *src/cnvrt.f
+159207db2b209e032fff89ce487cac5a *src/init.c
